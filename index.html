@@ -1,0 +1,426 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student API Interface</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            color: #461044;
+            background: linear-gradient(
+                135deg,
+                #fce7f3,
+                #f3e8ff,
+                #ead5ff
+            );
+            background-attachment: fixed;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.94);
+            padding: 35px;
+            border-radius: 22px;
+            box-shadow: 0 10px 35px rgba(126, 34, 206, 0.16);
+            border: 1px solid #f5d0fe;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .container:hover {
+            box-shadow: 0 14px 40px rgba(192, 38, 211, 0.22);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 10px;
+            background: linear-gradient(
+                90deg,
+                #7e22ce,
+                #db2777,
+                #9333ea
+            );
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #9333a8;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        h2 {
+            color: #7e22ce;
+            transition: color 0.3s ease;
+        }
+
+        .section {
+            margin-top: 24px;
+            padding: 23px;
+            background: linear-gradient(
+                135deg,
+                #ffffff,
+                #fdf2f8
+            );
+            border: 1px solid #e9b8f4;
+            border-left: 5px solid #a855f7;
+            border-radius: 15px;
+            transition:
+                transform 0.3s ease,
+                box-shadow 0.3s ease,
+                background 0.3s ease,
+                border-color 0.3s ease;
+        }
+
+        /* Card hover effect */
+        .section:hover {
+            transform: translateY(-5px);
+            background: linear-gradient(
+                135deg,
+                #faf5ff,
+                #fce7f3
+            );
+            border-color: #d946ef;
+            border-left-color: #ec4899;
+            box-shadow: 0 10px 25px rgba(168, 85, 247, 0.18);
+        }
+
+        .section:hover h2 {
+            color: #db2777;
+        }
+
+        p {
+            line-height: 1.6;
+        }
+
+        /* Purple and pink gradient buttons */
+        button {
+            display: inline-block;
+            padding: 12px 20px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 9px;
+            background: linear-gradient(
+                135deg,
+                #9333ea,
+                #c026d3,
+                #ec4899
+            );
+            background-size: 200% 200%;
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(192, 38, 211, 0.22);
+            transition:
+                background 0.3s ease,
+                transform 0.25s ease,
+                box-shadow 0.3s ease;
+        }
+
+        /* Button hover: pink changes to deep purple */
+        button:hover {
+            background: linear-gradient(
+                135deg,
+                #6b21a8,
+                #86198f,
+                #be185d
+            );
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 8px 20px rgba(147, 51, 234, 0.35);
+        }
+
+        button:active {
+            transform: scale(0.97);
+        }
+
+        button:focus-visible {
+            outline: 3px solid #f9a8d4;
+            outline-offset: 3px;
+        }
+
+        /* Input hover and focus effects */
+        input {
+            display: block;
+            width: 100%;
+            max-width: 400px;
+            padding: 13px;
+            margin-top: 12px;
+            border: 2px solid #e9d5ff;
+            border-radius: 9px;
+            font-size: 15px;
+            color: #581c87;
+            background: #fffaff;
+            transition:
+                border-color 0.3s ease,
+                box-shadow 0.3s ease,
+                background 0.3s ease;
+        }
+
+        input:hover {
+            border-color: #d946ef;
+            background: #fdf4ff;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #a855f7;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(217, 70, 239, 0.15);
+        }
+
+        input::placeholder {
+            color: #b07ab9;
+        }
+
+        /* API result cards */
+        .result {
+            margin-top: 16px;
+            padding: 16px;
+            background: linear-gradient(
+                135deg,
+                #faf5ff,
+                #fdf2f8
+            );
+            border: 1px solid #e9d5ff;
+            border-radius: 10px;
+            overflow-wrap: anywhere;
+            transition:
+                border-color 0.3s ease,
+                box-shadow 0.3s ease;
+        }
+
+        .result:hover {
+            border-color: #e879f9;
+            box-shadow: 0 4px 15px rgba(217, 70, 239, 0.12);
+        }
+
+        .result p {
+            padding: 8px 10px;
+            margin: 5px 0;
+            border-radius: 6px;
+            transition:
+                background 0.25s ease,
+                padding-left 0.25s ease;
+        }
+
+        .result p:hover {
+            background: #f5d0fe;
+            padding-left: 16px;
+        }
+
+        .footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 13px;
+            color: #a21caf;
+        }
+
+        .footer span {
+            color: #db2777;
+            font-weight: bold;
+        }
+
+        /* Responsive layout for mobile */
+        @media (max-width: 600px) {
+            body {
+                margin: 10px auto;
+                padding: 12px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 26px;
+            }
+
+            .section {
+                padding: 17px;
+            }
+
+            button {
+                max-width: 100%;
+            }
+        }
+
+        /* Respect reduced-motion preferences */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                transition-duration: 0.01ms !important;
+                animation-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="container">
+
+        <h1>Student API Interface</h1>
+
+        <p class="subtitle">
+            Welcome to my Flask API Web Interface!<br>
+            Explore student information and personalized greetings.
+        </p>
+
+        <!-- STUDENT INFORMATION -->
+        <section class="section">
+            <h2>Student Information</h2>
+
+            <p>
+                Retrieve your student details directly from the Flask API.
+            </p>
+
+            <button type="button" onclick="loadStudent()">
+                Load Student Information
+            </button>
+
+            <div id="studentResult" class="result" aria-live="polite">
+                Student information will appear here.
+            </div>
+        </section>
+
+        <!-- GREETING API -->
+        <section class="section">
+            <h2>Greeting API</h2>
+
+            <p>Enter your first name to receive a personalized greeting.</p>
+
+            <input
+                type="text"
+                id="nameInput"
+                placeholder="Enter your first name"
+            >
+
+            <button type="button" onclick="sayHello()">
+                Say Hello
+            </button>
+
+            <div id="greetingResult" class="result" aria-live="polite">
+                Your greeting will appear here.
+            </div>
+        </section>
+
+        <!-- ABOUT ME API -->
+        <section class="section">
+            <h2>About Me API</h2>
+
+            <p>Load additional information from your custom API endpoint.</p>
+
+            <button type="button" onclick="loadAbout()">
+                Load My Profile
+            </button>
+
+            <div id="aboutResult" class="result" aria-live="polite">
+                Your profile will appear here.
+            </div>
+        </section>
+
+        <div class="footer">
+            Created with <span>♥</span> using Python, Flask, HTML, CSS, and JavaScript.
+        </div>
+
+    </main>
+
+    <script>
+        // STUDENT INFORMATION
+        async function loadStudent() {
+            const result = document.getElementById("studentResult");
+
+            result.textContent = "Loading student information...";
+
+            try {
+                const response = await fetch("/student");
+
+                if (!response.ok) {
+                    throw new Error("HTTP " + response.status);
+                }
+
+                const data = await response.json();
+
+                result.replaceChildren();
+
+                for (const [label, value] of Object.entries(data)) {
+                    const p = document.createElement("p");
+                    p.textContent = label.replace(/_/g, " ") + ": " + value;
+                    result.appendChild(p);
+                }
+            } catch (error) {
+                console.error("Student API error:", error);
+                result.textContent =
+                    "Unable to load student information. Please try again.";
+            }
+        }
+
+        // GREETING API
+        async function sayHello() {
+            const input = document.getElementById("nameInput");
+            const result = document.getElementById("greetingResult");
+            const name = input.value.trim() || "Student";
+
+            result.textContent = "Loading greeting...";
+
+            try {
+                const response = await fetch(
+                    "/hello?name=" + encodeURIComponent(name)
+                );
+
+                if (!response.ok) {
+                    throw new Error("HTTP " + response.status);
+                }
+
+                const data = await response.json();
+                result.textContent = data.message;
+            } catch (error) {
+                console.error("Greeting API error:", error);
+                result.textContent = "Unable to load greeting. Please try again.";
+            }
+        }
+
+        // CUSTOM ABOUT API
+        async function loadAbout() {
+            const result = document.getElementById("aboutResult");
+
+            result.textContent = "Loading profile...";
+
+            try {
+                const response = await fetch("/about");
+
+                if (!response.ok) {
+                    throw new Error("HTTP " + response.status);
+                }
+
+                const data = await response.json();
+
+                result.replaceChildren();
+
+                for (const [label, value] of Object.entries(data)) {
+                    const p = document.createElement("p");
+                    p.textContent = label.replace(/_/g, " ") + ": " + value;
+                    result.appendChild(p);
+                }
+            } catch (error) {
+                console.error("About API error:", error);
+                result.textContent = "Unable to load profile. Please try again.";
+            }
+        }
+    </script>
+</body>
+</html>
