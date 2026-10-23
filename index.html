@@ -4,284 +4,882 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Student Database API</title>
+<title>StudentHub | Laboratory Activity 8</title>
 
 <style>
 :root {
-    --blue: #0649df;
-    --deep-blue: #073bc4;
-    --accent: #1558ee;
-    --light-blue: #eaf1ff;
-    --pale: #fff7f7;
-    --white: #fffafa;
-    --text: #20212a;
-    --muted: #6b6d78;
-    --border: rgba(36, 83, 190, .16);
+    --navy:#14264c;
+    --blue:#315dd5;
+    --violet:#7355d9;
+    --bg:#f4f6fc;
+    --ink:#1e2a44;
+    --muted:#71809a;
+    --line:#e5eaf5;
+    --white:#ffffff;
+    --shadow:0 12px 35px rgba(35,52,94,.07);
 }
 
 * {
-    box-sizing: border-box;
-}
-
-html {
-    scroll-behavior: smooth;
+    box-sizing:border-box;
 }
 
 body {
-    margin: 0;
-    min-height: 100vh;
-    padding: 38px 0;
-    font-family: Arial, Helvetica, sans-serif;
-    color: var(--text);
-    background:
-        radial-gradient(
-            ellipse at 72% 22%,
-            rgba(0, 65, 230, .98) 0%,
-            rgba(24, 91, 238, .82) 24%,
-            transparent 48%
-        ),
-        radial-gradient(
-            ellipse at 14% 80%,
-            rgba(27, 83, 230, .95) 0%,
-            rgba(50, 112, 242, .72) 28%,
-            transparent 54%
-        ),
-        linear-gradient(
-            120deg,
-            #fff6f5 0%,
-            #f7f4fa 45%,
-            #2d6be8 100%
-        );
-    background-attachment: fixed;
+    margin:0;
+    font-family:'Segoe UI',Arial,sans-serif;
+    color:var(--ink);
+    background:var(--bg);
 }
 
-body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    backdrop-filter: blur(20px);
-    pointer-events: none;
+button,input,select {
+    font:inherit;
 }
 
-/* Hidden header text */
-header {
-    width: min(1150px, 92%);
-    margin: 0 auto;
-    min-height: 18px;
-    padding: 0;
-    background: transparent;
-    color: var(--text);
-    text-align: left;
-}
-
-header h1,
-header p {
-    display: none;
-}
-
-/* Navigation */
-nav {
-    width: min(1150px, 92%);
-    margin: 0 auto;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 8px;
-    padding: 18px 26px;
-    background: rgba(255, 250, 250, .94);
-    border: 1px solid rgba(255,255,255,.8);
-    border-bottom: 0;
-    border-radius: 24px 24px 0 0;
-    box-shadow: 0 12px 35px rgba(16, 47, 122, .12);
-}
-
-nav a {
-    text-decoration: none;
-    color: #34343d;
-    font-weight: 500;
-    font-size: 13px;
-    padding: 10px 13px;
-    border-radius: 20px;
-    background: transparent;
-    transition: background .2s ease, color .2s ease;
-}
-
-nav a:hover {
-    background: var(--blue);
-    color: white;
-}
-
-/* Main container */
-main {
-    width: min(1150px, 92%);
-    margin: 0 auto;
-    padding: 10px 26px 28px;
-    background: rgba(255, 250, 250, .94);
-    border: 1px solid rgba(255,255,255,.8);
-    border-top: 0;
-    border-radius: 0 0 24px 24px;
-    box-shadow: 0 18px 42px rgba(16, 47, 122, .14);
-}
-
-/* Content cards */
-.card {
-    background: rgba(255,255,255,.78);
-    padding: 24px;
-    margin: 12px 0 20px;
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    box-shadow: 0 8px 24px rgba(15, 55, 145, .05);
-}
-
-.card h2 {
-    color: var(--deep-blue);
-    margin-top: 0;
-}
-
-.description {
-    color: var(--muted);
-    line-height: 1.6;
-}
-
-/* Buttons */
 button {
-    background: var(--blue);
-    color: white;
-    border: none;
-    border-radius: 22px;
-    padding: 11px 18px;
-    margin: 5px 5px 5px 0;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background .2s ease, transform .2s ease;
+    cursor:pointer;
 }
 
-button:hover {
-    background: var(--deep-blue);
-    transform: translateY(-1px);
+/* ==========================
+   SIDEBAR
+========================== */
+
+.sidebar {
+    position:fixed;
+    inset:0 auto 0 0;
+    width:260px;
+    background:linear-gradient(
+        170deg,
+        #162b57,
+        #222b65 65%,
+        #413179
+    );
+    color:white;
+    display:flex;
+    flex-direction:column;
+    z-index:30;
+    box-shadow:8px 0 30px #14264c12;
 }
 
-button:disabled {
-    opacity: .6;
-    cursor: wait;
-    transform: none;
+.brand {
+    padding:30px 24px 25px;
+    border-bottom:1px solid #ffffff1c;
 }
 
-/* Form controls */
-input,
-select {
-    width: min(100%, 380px);
-    padding: 11px 12px;
-    border: 1px solid #cbd8f8;
-    border-radius: 9px;
-    background: #fff;
-    color: var(--text);
-    margin: 6px 5px 10px 0;
-    outline-color: var(--blue);
+.brand strong {
+    display:block;
+    font-size:24px;
+    letter-spacing:-.8px;
 }
 
-label {
-    font-weight: 600;
+.brand small {
+    color:#b9c8eb;
+    font-size:11px;
 }
 
-/* API response display */
-pre {
-    background: #0d2d83;
-    color: #f4f7ff;
-    border-radius: 10px;
-    padding: 16px;
-    min-height: 50px;
-    white-space: pre-wrap;
-    overflow-wrap: anywhere;
-    line-height: 1.5;
-    font-size: 13px;
+.menu {
+    padding:20px 12px;
+    overflow-y:auto;
+    flex:1;
 }
 
-/* Tables */
-.table-wrapper {
-    width: 100%;
-    overflow-x: auto;
-    margin-top: 15px;
+.menu-label {
+    font-size:10px;
+    letter-spacing:2px;
+    color:#aebce1;
+    padding:16px 14px 9px;
+    font-weight:800;
+}
+
+.nav-link {
+    display:flex;
+    gap:12px;
+    align-items:center;
+    width:100%;
+    border:none;
+    background:none;
+    color:#cdd7f4;
+    padding:13px 15px;
+    border-radius:12px;
+    text-align:left;
+    margin:2px 0;
+    font-weight:600;
+    font-size:13px;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    background:#ffffff1c;
+    color:white;
+}
+
+.nav-link.active {
+    box-shadow:inset 3px 0 #a5b8ff;
+}
+
+.nav-icon {
+    width:23px;
+    text-align:center;
+    font-size:17px;
+}
+
+.sidebar-foot {
+    padding:18px 23px;
+    border-top:1px solid #ffffff1c;
+    color:#aebce1;
+    font-size:11px;
+    line-height:1.8;
+}
+
+/* ==========================
+   MAIN WORKSPACE
+========================== */
+
+.workspace {
+    margin-left:260px;
+    min-height:100vh;
+    min-width:0;
+}
+
+.topbar {
+    height:86px;
+    background:#ffffffdc;
+    border-bottom:1px solid var(--line);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 34px;
+    gap:15px;
+    position:sticky;
+    top:0;
+    z-index:10;
+    backdrop-filter:blur(12px);
+}
+
+.topbar h1 {
+    font-size:21px;
+    margin:0;
+    letter-spacing:-.6px;
+}
+
+.topbar p {
+    font-size:12px;
+    color:var(--muted);
+    margin:5px 0 0;
+}
+
+.top-right {
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.pill {
+    border-radius:100px;
+    padding:9px 13px;
+    background:#edf5ff;
+    color:#2955b8;
+    font-size:12px;
+    font-weight:700;
+}
+
+.avatar {
+    width:40px;
+    height:40px;
+    display:grid;
+    place-items:center;
+    border-radius:14px;
+    background:#e8e4ff;
+    color:#573eb8;
+    font-weight:900;
+}
+
+.content {
+    max-width:1600px;
+    margin:auto;
+    padding:30px 34px 55px;
+    min-width:0;
+}
+
+.page {
+    display:none;
+    animation:rise .2s ease;
+    min-width:0;
+}
+
+.page.active {
+    display:block;
+}
+
+@keyframes rise {
+    from {
+        opacity:.6;
+        transform:translateY(7px);
+    }
+    to {
+        opacity:1;
+        transform:none;
+    }
+}
+
+.eyebrow {
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:1.8px;
+    font-weight:800;
+    color:var(--violet);
+    margin-bottom:8px;
+}
+
+.page-title {
+    font-size:28px;
+    letter-spacing:-1px;
+    margin:0 0 7px;
+}
+
+.subtitle {
+    color:var(--muted);
+    font-size:14px;
+    line-height:1.6;
+    margin:0 0 25px;
+}
+
+/* ==========================
+   DASHBOARD
+========================== */
+
+.hero {
+    background:linear-gradient(
+        115deg,
+        #253e84,
+        #6452bd
+    );
+    border-radius:22px;
+    padding:32px;
+    color:white;
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    align-items:center;
+    box-shadow:var(--shadow);
+    margin-bottom:24px;
+    overflow:hidden;
+}
+
+.hero h2 {
+    font-size:29px;
+    margin:6px 0 9px;
+    letter-spacing:-1px;
+}
+
+.hero p {
+    max-width:560px;
+    line-height:1.65;
+    color:#e4eaff;
+    margin:0;
+}
+
+.hero-art {
+    font-size:80px;
+    opacity:.45;
+}
+
+.stats {
+    display:grid;
+    grid-template-columns:repeat(4,minmax(0,1fr));
+    gap:16px;
+    margin-bottom:22px;
+}
+
+.stat,
+.panel {
+    background:white;
+    border:1px solid var(--line);
+    box-shadow:var(--shadow);
+    border-radius:18px;
+    min-width:0;
+}
+
+.stat {
+    padding:22px;
+}
+
+.stat .symbol {
+    font-size:22px;
+    background:#f0efff;
+    width:44px;
+    height:44px;
+    display:grid;
+    place-items:center;
+    border-radius:13px;
+}
+
+.stat .num {
+    font-size:30px;
+    font-weight:850;
+    letter-spacing:-1px;
+    margin:15px 0 3px;
+}
+
+.stat .label {
+    font-size:12px;
+    color:var(--muted);
+    font-weight:600;
+}
+
+.panel {
+    padding:24px;
+    margin-bottom:20px;
+}
+
+.panel h3 {
+    margin:0 0 8px;
+    font-size:17px;
+}
+
+.panel p {
+    color:var(--muted);
+    line-height:1.6;
+    font-size:13px;
+}
+
+.dashboard-grid {
+    display:grid;
+    grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);
+    gap:20px;
+}
+
+.mini-list {
+    display:grid;
+    gap:12px;
+    margin-top:18px;
+}
+
+.mini-item {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    border-bottom:1px solid var(--line);
+    padding-bottom:11px;
+}
+
+.mini-item:last-child {
+    border:0;
+}
+
+.mini-item strong {
+    display:block;
+    font-size:13px;
+}
+
+.mini-item small {
+    color:var(--muted);
+    font-size:11px;
+}
+
+.tag {
+    background:#eff3ff;
+    color:#315dd5;
+    border-radius:50px;
+    padding:6px 10px;
+    font-size:11px;
+    font-weight:800;
+}
+
+/* ==========================
+   BUTTONS
+========================== */
+
+.actions {
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:15px;
+}
+
+.btn {
+    background:var(--blue);
+    color:white;
+    border:0;
+    padding:11px 16px;
+    border-radius:11px;
+    font-weight:750;
+    font-size:13px;
+    transition:.2s;
+}
+
+.btn:hover {
+    filter:brightness(.94);
+    transform:translateY(-1px);
+}
+
+.btn:disabled {
+    opacity:.5;
+    cursor:wait;
+}
+
+.btn.secondary {
+    background:#eef1fb;
+    color:#344b83;
+}
+
+.btn.danger {
+    background:#ffe8ed;
+    color:#b72e4b;
+}
+
+.btn.warning {
+    background:#fff1d9;
+    color:#a66b13;
+}
+
+.btn.teal {
+    background:#e4f6f5;
+    color:#167e77;
+}
+
+.btn.small {
+    padding:8px 10px;
+    font-size:11px;
+    margin:2px;
+}
+
+.back-btn {
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    margin-bottom:22px;
+    background:#e9edfa;
+    color:#2d477e;
+    border:1px solid #dce4f7;
+    padding:11px 16px;
+    border-radius:11px;
+    font-size:13px;
+    font-weight:750;
+    transition:.2s;
+}
+
+.back-btn:hover {
+    background:#dce5fb;
+    transform:translateX(-3px);
+}
+
+/* ==========================
+   FORMS
+========================== */
+
+.form-grid {
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:17px;
+}
+
+.field label {
+    display:block;
+    font-weight:700;
+    font-size:12px;
+    margin-bottom:7px;
+}
+
+.field input,
+.field select,
+.search-input {
+    width:100%;
+    border:1px solid #dce3f1;
+    border-radius:11px;
+    padding:12px 13px;
+    background:white;
+    color:var(--ink);
+    outline:none;
+}
+
+.field input:focus,
+.field select:focus,
+.search-input:focus {
+    border-color:#786be0;
+    box-shadow:0 0 0 3px #786be019;
+}
+
+.toolbar {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:14px;
+    flex-wrap:wrap;
+    margin:17px 0;
+}
+
+.search-input {
+    max-width:360px;
+}
+
+/* ==========================
+   TABLES
+========================== */
+
+.table-wrap {
+    width:100%;
+    max-width:100%;
+    overflow-x:auto;
+    border:1px solid var(--line);
+    border-radius:13px;
 }
 
 table {
-    width: 100%;
-    border-collapse: collapse;
-    min-width: 650px;
+    border-collapse:collapse;
+    width:100%;
+    min-width:680px;
 }
 
 th,
 td {
-    border-bottom: 1px solid var(--border);
-    padding: 12px;
-    text-align: left;
-    font-size: 14px;
+    padding:14px 13px;
+    text-align:left;
+    border-bottom:1px solid var(--line);
+    font-size:12px;
 }
 
 th {
-    background: var(--light-blue);
-    color: var(--deep-blue);
+    color:#687997;
+    background:#f8faff;
+    font-weight:800;
+    white-space:nowrap;
+}
+
+td {
+    color:#34405b;
+}
+
+tbody tr:last-child td {
+    border-bottom:0;
 }
 
 tbody tr:hover {
-    background: #f5f8ff;
+    background:#fafbff;
 }
 
-/* Status messages */
-.status {
-    font-size: 14px;
-    color: var(--deep-blue);
-    margin-top: 12px;
+/* ==========================
+   IMPROVED FILTER CARDS
+   FULL WIDTH AND SPACIOUS
+========================== */
+
+.filter-layout {
+    display:grid;
+    grid-template-columns:minmax(0,1fr);
+    gap:22px;
+    width:100%;
 }
 
-/* API endpoint labels */
+.filter-card {
+    width:100%;
+    min-width:0;
+    padding:28px 30px;
+    border-radius:20px;
+}
+
+.filter-card h3 {
+    font-size:19px;
+    color:#233b7a;
+    margin-bottom:8px;
+}
+
+.filter-card .filter-description {
+    font-size:13px;
+    color:var(--muted);
+    margin-bottom:18px;
+}
+
+.filter-toolbar {
+    display:flex;
+    align-items:flex-end;
+    gap:14px;
+    flex-wrap:wrap;
+    margin:18px 0;
+}
+
+.filter-field {
+    width:100%;
+    max-width:400px;
+}
+
+.filter-field label {
+    display:block;
+    font-size:12px;
+    font-weight:750;
+    color:#3b4b70;
+    margin-bottom:8px;
+}
+
+.filter-field input,
+.filter-field select {
+    width:100%;
+    min-height:46px;
+    border:1px solid #dce3f1;
+    border-radius:11px;
+    background:#fff;
+    padding:12px 14px;
+    outline:none;
+    color:var(--ink);
+}
+
+.filter-field input:focus,
+.filter-field select:focus {
+    border-color:#786be0;
+    box-shadow:0 0 0 3px #786be019;
+}
+
+.filter-toolbar .btn {
+    min-height:46px;
+    padding:12px 24px;
+}
+
+.filter-table {
+    width:100%;
+    min-width:650px;
+    table-layout:auto;
+}
+
+.filter-table th,
+.filter-table td {
+    padding:16px 18px;
+    font-size:13px;
+    vertical-align:middle;
+}
+
+.filter-table th {
+    font-size:12px;
+    color:#536487;
+    background:#f3f6ff;
+}
+
+.filter-table td {
+    overflow-wrap:anywhere;
+}
+
+.filter-table th:nth-child(1) {
+    width:9%;
+}
+
+.filter-table th:nth-child(2) {
+    width:18%;
+}
+
+.filter-table th:nth-child(3) {
+    width:28%;
+}
+
+.filter-table th:nth-child(4) {
+    width:17%;
+}
+
+.filter-table th:nth-child(5) {
+    width:13%;
+}
+
+.filter-table th:nth-child(6) {
+    width:15%;
+}
+
+.filter-result {
+    display:flex;
+    align-items:center;
+    gap:9px;
+    margin:15px 0;
+    padding:13px 16px;
+    border-radius:11px;
+    background:#edf3ff;
+    color:#38558e;
+    font-size:13px;
+    font-weight:650;
+}
+
+/* ==========================
+   OTHER ELEMENTS
+========================== */
+
+.notice {
+    font-size:13px;
+    color:#58678b;
+    background:#f0f4ff;
+    padding:12px 14px;
+    border-radius:11px;
+    margin:12px 0;
+}
+
+.notice.error {
+    background:#fff0f1;
+    color:#a62742;
+}
+
+.output {
+    background:#172448;
+    color:#e7eeff;
+    border-radius:13px;
+    padding:17px;
+    white-space:pre-wrap;
+    overflow-wrap:anywhere;
+    font-size:12px;
+    line-height:1.7;
+    max-height:350px;
+    overflow:auto;
+}
+
 .endpoint {
-    display: inline-block;
-    background: #e8efff;
-    color: #0b3db5;
-    padding: 7px 10px;
-    border-radius: 7px;
-    margin: 5px 4px 10px 0;
-    font-family: monospace;
-    overflow-wrap: anywhere;
+    font:11px monospace;
+    background:#edf0ff;
+    color:#4158a3;
+    border-radius:7px;
+    padding:6px 9px;
+    display:inline-block;
+    margin:5px 5px 9px 0;
 }
 
-/* Hide footer text */
-footer {
-    display: none;
+.hamburger {
+    display:none;
+    border:0;
+    background:#eef1fa;
+    border-radius:10px;
+    padding:10px;
 }
 
-/* Responsive design */
-@media (max-width: 700px) {
-    body {
-        padding: 14px 0;
+.empty {
+    color:#8994a8;
+    text-align:center;
+    padding:24px;
+}
+
+.footer {
+    text-align:center;
+    color:#98a2b8;
+    font-size:11px;
+    margin-top:28px;
+}
+
+/* ==========================
+   RESPONSIVE DESIGN
+========================== */
+
+@media(max-width:1100px) {
+    .stats {
+        grid-template-columns:repeat(2,1fr);
     }
 
-    nav,
-    main {
-        width: 94%;
+    .dashboard-grid {
+        grid-template-columns:1fr;
     }
 
-    nav {
-        justify-content: center;
-        padding: 14px 10px;
-        border-radius: 18px 18px 0 0;
+    .content {
+        padding:25px 22px 45px;
     }
 
-    nav a {
-        font-size: 12px;
-        padding: 8px 10px;
+    .filter-card {
+        padding:24px;
+    }
+}
+
+@media(max-width:760px) {
+    .sidebar {
+        transform:translateX(-100%);
+        transition:transform .25s;
     }
 
-    main {
-        padding: 8px 12px 18px;
-        border-radius: 0 0 18px 18px;
+    .sidebar.open {
+        transform:none;
     }
 
-    .card {
-        padding: 17px;
+    .workspace {
+        margin-left:0;
+    }
+
+    .hamburger {
+        display:block;
+    }
+
+    .topbar {
+        height:72px;
+        padding:0 17px;
+    }
+
+    .topbar h1 {
+        font-size:17px;
+    }
+
+    .top-right .pill {
+        display:none;
+    }
+
+    .content {
+        padding:20px 14px;
+    }
+
+    .hero {
+        padding:24px;
+    }
+
+    .hero h2 {
+        font-size:23px;
+    }
+
+    .hero-art {
+        display:none;
+    }
+
+    .form-grid {
+        grid-template-columns:1fr;
+    }
+
+    .stats {
+        gap:10px;
+    }
+
+    .stat {
+        padding:16px;
+    }
+
+    .stat .num {
+        font-size:25px;
+    }
+
+    .panel {
+        padding:17px;
+    }
+
+    .page-title {
+        font-size:24px;
+    }
+
+    .filter-layout {
+        gap:16px;
+    }
+
+    .filter-card {
+        padding:18px 14px;
+    }
+
+    .filter-card h3 {
+        font-size:17px;
+    }
+
+    .filter-toolbar {
+        align-items:stretch;
+        flex-direction:column;
+    }
+
+    .filter-field {
+        max-width:none;
+    }
+
+    .filter-toolbar .btn {
+        width:100%;
+    }
+
+    .filter-table {
+        min-width:620px;
+    }
+
+    .filter-table th,
+    .filter-table td {
+        padding:12px 11px;
+        font-size:12px;
     }
 }
 </style>
@@ -289,587 +887,1691 @@ footer {
 
 <body>
 
-<header aria-label="Student API navigation"></header>
+<!-- ==========================
+     SIDEBAR
+========================== -->
 
-<nav>
-    <a href="#student">Student Info</a>
-    <a href="#greeting">Greeting</a>
-    <a href="#about">About Me</a>
-    <a href="#addStudent">Add Student</a>
-    <a href="#database">All Students</a>
-    <a href="#search">Search</a>
-    <a href="#program">Program Filter</a>
-    <a href="#year">Year Filter</a>
-</nav>
+<aside class="sidebar" id="sidebar">
 
-<main>
+    <div class="brand">
+        <strong>◈ StudentHub</strong>
+        <small>FLASK API · LABORATORY 08</small>
+    </div>
 
-    <!-- STUDENT INFORMATION -->
-    <section class="card" id="student">
-        <h2>Student Information</h2>
+    <div class="menu">
 
-        <p class="description">
-            Retrieve student information from the API.
-        </p>
+        <div class="menu-label">OVERVIEW</div>
 
-        <span class="endpoint">GET /student</span>
-        <br>
-
-        <button onclick="loadStudent()">
-            Load Student Information
+        <button class="nav-link active" data-page="dashboard">
+            <span class="nav-icon">▦</span>
+            Dashboard
         </button>
 
-        <pre id="studentResult">Click the button to load information.</pre>
-    </section>
+        <div class="menu-label">STUDENT MANAGEMENT</div>
 
-    <!-- GREETING API -->
-    <section class="card" id="greeting">
-        <h2>Greeting API</h2>
-
-        <p class="description">
-            Enter a name to receive a personalized greeting.
-        </p>
-
-        <span class="endpoint">GET /hello?name=YourName</span>
-        <br>
-
-        <label for="helloName">Name</label>
-        <br>
-
-        <input
-            id="helloName"
-            placeholder="Enter your name"
-        >
-
-        <button onclick="sayHello()">
-            Send Greeting
+        <button class="nav-link" data-page="records">
+            <span class="nav-icon">▤</span>
+            My Records
         </button>
 
-        <pre id="helloResult">Your greeting will appear here.</pre>
-    </section>
-
-    <!-- ABOUT ME API -->
-    <section class="card" id="about">
-        <h2>About Me API</h2>
-
-        <span class="endpoint">GET /about</span>
-        <br>
-
-        <button onclick="loadAbout()">
-            Load About Me
+        <button class="nav-link" data-page="manage">
+            <span class="nav-icon">⊕</span>
+            Add / Edit Student
         </button>
 
-        <pre id="aboutResult">Click to load profile information.</pre>
-    </section>
+        <button class="nav-link" data-page="search">
+            <span class="nav-icon">⌕</span>
+            Search & Filters
+        </button>
 
-    <!-- ADD STUDENT -->
-    <section class="card" id="addStudent">
-        <h2>Add New Student</h2>
+        <div class="menu-label">EXTERNAL DATA</div>
 
-        <p class="description">
-            Enter student information to save a new record directly
-            into the SQLite database.
-        </p>
+        <button class="nav-link" data-page="remote">
+            <span class="nav-icon">☁</span>
+            Classmate's Records
+        </button>
 
-        <span class="endpoint">POST /students</span>
+        <div class="menu-label">PREVIOUS LAB FEATURES</div>
 
-        <form id="addStudentForm">
+        <button class="nav-link" data-page="student">
+            <span class="nav-icon">♙</span>
+            Student Information
+        </button>
 
-            <label for="newStudentId">Student ID</label>
-            <br>
+        <button class="nav-link" data-page="greeting">
+            <span class="nav-icon">✉</span>
+            Greeting API
+        </button>
+
+        <button class="nav-link" data-page="about">
+            <span class="nav-icon">ⓘ</span>
+            About Me
+        </button>
+
+    </div>
+
+    <div class="sidebar-foot">
+        Jasmine Rose Biboso · BSIT 3A
+        <br>
+        SQLite · Flask · Render API
+    </div>
+
+</aside>
+
+<!-- ==========================
+     MAIN WORKSPACE
+========================== -->
+
+<div class="workspace">
+
+<header class="topbar">
+
+    <div style="display:flex;align-items:center;gap:13px">
+
+        <button
+            class="hamburger"
+            id="menuToggle"
+            aria-label="Open menu">
+            ☰
+        </button>
+
+        <div>
+            <h1 id="topTitle">Dashboard</h1>
+            <p>Student Database Management System</p>
+        </div>
+
+    </div>
+
+    <div class="top-right">
+        <span class="pill" id="connectionBadge">
+            ● Checking API
+        </span>
+
+        <div class="avatar">JB</div>
+    </div>
+
+</header>
+
+<main class="content">
+
+<!-- ==========================
+     DASHBOARD
+========================== -->
+
+<section class="page active" id="page-dashboard">
+
+    <div class="eyebrow">
+        Overview / Laboratory 8
+    </div>
+
+    <div class="hero">
+
+        <div>
+            <small>WELCOME TO YOUR WORKSPACE</small>
+
+            <h2>Student Database Dashboard</h2>
+
+            <p>
+                Monitor student information, check your
+                database summary, and access local and
+                remote API records in one organized workspace.
+            </p>
+
+            <div class="actions">
+
+                <button class="btn" data-go="records">
+                    View My Records →
+                </button>
+
+                <button class="btn secondary" data-go="remote">
+                    Classmate's Records
+                </button>
+
+            </div>
+        </div>
+
+        <div class="hero-art">◈</div>
+
+    </div>
+
+    <div class="stats">
+
+        <div class="stat">
+            <div class="symbol">👥</div>
+            <div class="num" id="statTotal">—</div>
+            <div class="label">Total Students</div>
+        </div>
+
+        <div class="stat">
+            <div class="symbol">🎓</div>
+            <div class="num" id="statBSIT">—</div>
+            <div class="label">BSIT Students</div>
+        </div>
+
+        <div class="stat">
+            <div class="symbol">📚</div>
+            <div class="num" id="statYears">—</div>
+            <div class="label">Year Levels Represented</div>
+        </div>
+
+        <div class="stat">
+            <div class="symbol">☁</div>
+            <div class="num" id="statRemote">—</div>
+            <div class="label">Remote Records</div>
+        </div>
+
+    </div>
+
+    <div class="dashboard-grid">
+
+        <div class="panel">
+
+            <h3>Recent Student Records</h3>
+
+            <p>
+                Latest student entries from your own
+                SQLite database.
+            </p>
+
+            <div class="mini-list" id="recentList">
+                <div class="empty">
+                    Loading records...
+                </div>
+            </div>
+
+        </div>
+
+        <div class="panel">
+
+            <h3>System Information</h3>
+
+            <p>
+                Your Flask REST API provides student
+                management and database operations.
+            </p>
+
+            <div class="notice">
+                <strong>Backend:</strong> Flask REST API
+                <br><br>
+                <strong>Database:</strong> SQLite
+                <br><br>
+                <strong>Deployment:</strong> Render
+                <br><br>
+                <strong>Activity:</strong> Laboratory 8
+            </div>
+
+            <div class="notice" id="dashboardNotice">
+                Checking remote API connection...
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ==========================
+     MY RECORDS
+========================== -->
+
+<section class="page" id="page-records">
+
+    <div class="eyebrow">Student Management</div>
+
+    <h2 class="page-title">My Records</h2>
+
+    <p class="subtitle">
+        Manage the student information saved
+        in your SQLite database.
+    </p>
+
+    <div class="panel">
+
+        <h3>Student Database Records</h3>
+
+        <span class="endpoint">GET /api/students</span>
+
+        <div class="toolbar">
 
             <input
-                id="newStudentId"
-                required
-                maxlength="50"
-                placeholder="e.g. 2026-00128"
+                type="search"
+                id="localSearch"
+                class="search-input"
+                placeholder="Search student ID, name, program..."
             >
-            <br>
 
-            <label for="newStudentName">Full Name</label>
-            <br>
+            <div class="actions">
 
-            <input
-                id="newStudentName"
-                required
-                maxlength="150"
-                placeholder="Enter full name"
-            >
-            <br>
+                <button class="btn secondary" id="refreshLocal">
+                    Refresh
+                </button>
 
-            <label for="newStudentProgram">Program</label>
-            <br>
+                <button class="btn" id="addFromRecords">
+                    + Add Student
+                </button>
 
-            <input
-                id="newStudentProgram"
-                required
-                maxlength="100"
-                placeholder="e.g. BSIT"
-            >
-            <br>
+            </div>
 
-            <label for="newStudentYear">Year Level</label>
-            <br>
+        </div>
 
-            <select id="newStudentYear" required>
-                <option value="1">1st Year</option>
-                <option value="2">2nd Year</option>
-                <option value="3" selected>3rd Year</option>
-                <option value="4">4th Year</option>
-            </select>
-            <br>
+        <div class="notice" id="localStatus">
+            Loading records...
+        </div>
 
-            <label for="newStudentSection">Section</label>
-            <br>
+        <div class="table-wrap">
 
-            <input
-                id="newStudentSection"
-                required
-                maxlength="50"
-                placeholder="e.g. A"
-            >
-            <br>
+            <table>
 
-            <button type="submit" id="addStudentButton">
-                Add Student
-            </button>
+                <thead>
+                    <tr>
+                        <th>DB ID</th>
+                        <th>Student ID</th>
+                        <th>Full Name</th>
+                        <th>Program</th>
+                        <th>Year</th>
+                        <th>Section</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
 
-            <button type="reset">
-                Clear Form
-            </button>
+                <tbody id="localBody">
+                    <tr>
+                        <td colspan="7">
+                            Loading student records...
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ==========================
+     ADD / EDIT STUDENT
+========================== -->
+
+<section class="page" id="page-manage">
+
+    <button
+        type="button"
+        class="back-btn"
+        id="backToRecordsTop">
+        ← Back to My Records
+    </button>
+
+    <div class="eyebrow">Student Management</div>
+
+    <h2 class="page-title" id="formHeading">
+        Add New Student
+    </h2>
+
+    <p class="subtitle">
+        Register a new student or update an existing
+        record in the SQLite database.
+    </p>
+
+    <div class="panel">
+
+        <h3>Student Information Form</h3>
+
+        <span class="endpoint">POST /api/students</span>
+        <span class="endpoint">PUT /api/students/{id}</span>
+
+        <form id="studentForm">
+
+            <div class="form-grid">
+
+                <div class="field">
+                    <label for="student_id">Student ID</label>
+
+                    <input
+                        id="student_id"
+                        required
+                        maxlength="50"
+                        placeholder="e.g. 2026-00128"
+                    >
+                </div>
+
+                <div class="field">
+                    <label for="name">Complete Name</label>
+
+                    <input
+                        id="name"
+                        required
+                        maxlength="150"
+                        placeholder="Enter complete name"
+                    >
+                </div>
+
+                <div class="field">
+                    <label for="program">Program</label>
+
+                    <input
+                        id="program"
+                        required
+                        maxlength="100"
+                        placeholder="e.g. BSIT"
+                    >
+                </div>
+
+                <div class="field">
+                    <label for="year">Year Level</label>
+
+                    <select id="year" required>
+                        <option value="1">1st Year</option>
+                        <option value="2">2nd Year</option>
+                        <option value="3" selected>3rd Year</option>
+                        <option value="4">4th Year</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="section">Section</label>
+
+                    <input
+                        id="section"
+                        required
+                        maxlength="50"
+                        placeholder="e.g. A"
+                    >
+                </div>
+
+            </div>
+
+            <div class="actions">
+
+                <button
+                    class="btn"
+                    type="submit"
+                    id="saveBtn">
+                    Save Student
+                </button>
+
+                <button
+                    class="btn secondary"
+                    type="button"
+                    id="clearBtn">
+                    Clear Form
+                </button>
+
+                <button
+                    class="btn secondary"
+                    type="button"
+                    id="backToRecordsBottom">
+                    ← Back to My Records
+                </button>
+
+            </div>
 
         </form>
 
-        <p id="addStudentStatus" class="status" role="status"></p>
+        <div class="notice" id="formStatus">
+            Complete the fields to save a student.
+        </div>
 
-        <pre id="addStudentResult">The saved student record will appear here.</pre>
-    </section>
+        <pre class="output" id="formResult">Student information will appear here.</pre>
 
-    <!-- ALL STUDENTS -->
-    <section class="card" id="database">
-        <h2>All Students from SQLite</h2>
+    </div>
 
-        <p class="description">
-            Records are retrieved from students.db.
+</section>
+
+<!-- ==========================
+     SEARCH AND FILTERS
+========================== -->
+
+<section class="page" id="page-search">
+
+    <div class="eyebrow">Student Management</div>
+
+    <h2 class="page-title">Search & Filters</h2>
+
+    <p class="subtitle">
+        Search student records by database ID,
+        program, or year level.
+    </p>
+
+    <!-- SEARCH BY DATABASE ID -->
+
+    <div class="panel">
+
+        <h3>Search Student by Database ID</h3>
+
+        <span class="endpoint">GET /students/{id}</span>
+
+        <div class="toolbar">
+
+            <input
+                type="number"
+                id="searchId"
+                class="search-input"
+                min="1"
+                placeholder="Enter database ID"
+            >
+
+            <button class="btn" id="searchIdBtn">
+                Search Student
+            </button>
+
+        </div>
+
+        <pre class="output" id="searchResult">Student details will appear here.</pre>
+
+    </div>
+
+    <!-- NEW FULL WIDTH FILTER LAYOUT -->
+
+    <div class="filter-layout">
+
+        <!-- FILTER BY PROGRAM -->
+
+        <div class="panel filter-card">
+
+            <h3>🎓 Filter Students by Program</h3>
+
+            <p class="filter-description">
+                View all students enrolled in a specific
+                academic program.
+            </p>
+
+            <span class="endpoint">
+                GET /students/program/BSIT
+            </span>
+
+            <div class="filter-toolbar">
+
+                <div class="filter-field">
+
+                    <label for="filterProgram">
+                        Select / Enter Program
+                    </label>
+
+                    <input
+                        id="filterProgram"
+                        value="BSIT"
+                        placeholder="e.g. BSIT"
+                    >
+
+                </div>
+
+                <button
+                    class="btn"
+                    id="filterProgramBtn">
+                    🔍 Filter Program
+                </button>
+
+            </div>
+
+            <div class="filter-result" id="programStatus">
+                Select a program to view matching records.
+            </div>
+
+            <div class="table-wrap">
+
+                <table class="filter-table">
+
+                    <thead>
+                        <tr>
+                            <th>DB ID</th>
+                            <th>Student ID</th>
+                            <th>Complete Name</th>
+                            <th>Program</th>
+                            <th>Year Level</th>
+                            <th>Section</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="programBody">
+                        <tr>
+                            <td colspan="6">
+                                No results yet.
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+        <!-- FILTER BY YEAR LEVEL -->
+
+        <div class="panel filter-card">
+
+            <h3>📚 Filter Students by Year Level</h3>
+
+            <p class="filter-description">
+                View student records grouped by
+                their academic year level.
+            </p>
+
+            <span class="endpoint">
+                GET /students/year/3
+            </span>
+
+            <div class="filter-toolbar">
+
+                <div class="filter-field">
+
+                    <label for="filterYear">
+                        Select Year Level
+                    </label>
+
+                    <select id="filterYear">
+
+                        <option value="1">
+                            1st Year
+                        </option>
+
+                        <option value="2">
+                            2nd Year
+                        </option>
+
+                        <option value="3" selected>
+                            3rd Year
+                        </option>
+
+                        <option value="4">
+                            4th Year
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <button
+                    class="btn"
+                    id="filterYearBtn">
+                    🔍 Filter Year Level
+                </button>
+
+            </div>
+
+            <div class="filter-result" id="yearStatus">
+                Select a year level to view matching records.
+            </div>
+
+            <div class="table-wrap">
+
+                <table class="filter-table">
+
+                    <thead>
+                        <tr>
+                            <th>DB ID</th>
+                            <th>Student ID</th>
+                            <th>Complete Name</th>
+                            <th>Program</th>
+                            <th>Year Level</th>
+                            <th>Section</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="yearBody">
+                        <tr>
+                            <td colspan="6">
+                                No results yet.
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ==========================
+     CLASSMATE RECORDS
+========================== -->
+
+<section class="page" id="page-remote">
+
+    <div class="eyebrow">External Data Integration</div>
+
+    <h2 class="page-title">
+        Classmate's Records
+    </h2>
+
+    <p class="subtitle">
+        Student information retrieved from your
+        classmate's deployed REST API.
+        These records are read-only.
+    </p>
+
+    <div class="panel">
+
+        <h3>Remote Student Database</h3>
+
+        <span class="endpoint">
+            GET /api/classmate
+        </span>
+
+        <div class="actions">
+
+            <button class="btn" id="refreshRemote">
+                Refresh Remote Records
+            </button>
+
+        </div>
+
+        <div class="notice" id="remoteStatus">
+            Waiting for remote API...
+        </div>
+
+        <div class="table-wrap">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Student ID</th>
+                        <th>Complete Name</th>
+                        <th>Program</th>
+                        <th>Year</th>
+                        <th>Section</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody id="remoteBody">
+                    <tr>
+                        <td colspan="6">
+                            Loading remote records...
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+    <div class="panel">
+
+        <h3>Remote Student Details</h3>
+
+        <p>
+            Click View Details to inspect a remote
+            student record without modifying
+            the classmate's database.
         </p>
 
-        <span class="endpoint">GET /students</span>
-        <br>
+        <pre class="output" id="remoteDetails">No remote student selected.</pre>
 
-        <button onclick="loadStudents()">
-            Refresh Student List
-        </button>
+    </div>
 
-        <p id="allStatus" class="status"></p>
+</section>
 
-        <div class="table-wrapper">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Database ID</th>
-                        <th>Student ID</th>
-                        <th>Name</th>
-                        <th>Program</th>
-                        <th>Year</th>
-                        <th>Section</th>
-                    </tr>
-                </thead>
+<!-- ==========================
+     STUDENT INFORMATION
+========================== -->
 
-                <tbody id="allStudentsTable">
-                    <tr>
-                        <td colspan="6">Loading student records...</td>
-                    </tr>
-                </tbody>
-            </table>
+<section class="page" id="page-student">
+
+    <div class="eyebrow">
+        Previous Laboratory Features
+    </div>
+
+    <h2 class="page-title">
+        Student Information
+    </h2>
+
+    <p class="subtitle">
+        Retrieve the original student profile API response.
+    </p>
+
+    <div class="panel">
+
+        <span class="endpoint">
+            GET /student
+        </span>
+
+        <div class="actions">
+
+            <button class="btn" id="loadStudent">
+                Load Student Information
+            </button>
+
         </div>
-    </section>
 
-    <!-- SEARCH STUDENT -->
-    <section class="card" id="search">
-        <h2>Search Student by Database ID</h2>
+        <pre class="output" id="studentResult">Click the button to retrieve information.</pre>
 
-        <span class="endpoint">GET /students/1</span>
-        <br>
+    </div>
 
-        <label for="studentDbId">Database ID</label>
-        <br>
+</section>
 
-        <input
-            id="studentDbId"
-            type="number"
-            min="1"
-            placeholder="Enter numeric database ID"
-        >
+<!-- ==========================
+     GREETING API
+========================== -->
 
-        <button onclick="loadStudentById()">
-            Search Student
-        </button>
+<section class="page" id="page-greeting">
 
-        <pre id="singleStudentResult">Student details will appear here.</pre>
-    </section>
+    <div class="eyebrow">
+        Previous Laboratory Features
+    </div>
 
-    <!-- FILTER BY PROGRAM -->
-    <section class="card" id="program">
-        <h2>Filter Students by Program</h2>
+    <h2 class="page-title">
+        Greeting API
+    </h2>
 
-        <span class="endpoint">GET /students/program/BSIT</span>
-        <br>
+    <p class="subtitle">
+        Send a name to the Flask API and receive
+        a personalized greeting.
+    </p>
 
-        <label for="programName">Program</label>
-        <br>
+    <div class="panel">
 
-        <input
-            id="programName"
-            value="BSIT"
-            placeholder="Enter program"
-        >
+        <span class="endpoint">
+            GET /hello?name=YourName
+        </span>
 
-        <button onclick="filterStudentsByProgram()">
-            Filter Program
-        </button>
+        <div class="actions">
 
-        <p id="programStatus" class="status"></p>
+            <input
+                class="search-input"
+                id="helloName"
+                placeholder="Enter your name"
+            >
 
-        <div class="table-wrapper">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Database ID</th>
-                        <th>Student ID</th>
-                        <th>Name</th>
-                        <th>Program</th>
-                        <th>Year</th>
-                        <th>Section</th>
-                    </tr>
-                </thead>
+            <button class="btn" id="sayHello">
+                Send Greeting
+            </button>
 
-                <tbody id="programStudentsTable">
-                    <tr>
-                        <td colspan="6">Enter a program to search.</td>
-                    </tr>
-                </tbody>
-            </table>
         </div>
-    </section>
 
-    <!-- FILTER BY YEAR -->
-    <section class="card" id="year">
-        <h2>Filter Students by Year Level</h2>
+        <pre class="output" id="helloResult">Your greeting will appear here.</pre>
 
-        <span class="endpoint">GET /students/year/3</span>
-        <br>
+    </div>
 
-        <label for="yearLevel">Year Level</label>
-        <br>
+</section>
 
-        <select id="yearLevel">
-            <option value="1">1st Year</option>
-            <option value="2">2nd Year</option>
-            <option value="3" selected>3rd Year</option>
-            <option value="4">4th Year</option>
-        </select>
+<!-- ==========================
+     ABOUT ME API
+========================== -->
 
-        <button onclick="filterStudentsByYear()">
-            Search Students
-        </button>
+<section class="page" id="page-about">
 
-        <p id="yearStatus" class="status"></p>
+    <div class="eyebrow">
+        Previous Laboratory Features
+    </div>
 
-        <div class="table-wrapper">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Database ID</th>
-                        <th>Student ID</th>
-                        <th>Name</th>
-                        <th>Program</th>
-                        <th>Year</th>
-                        <th>Section</th>
-                    </tr>
-                </thead>
+    <h2 class="page-title">
+        About Me API
+    </h2>
 
-                <tbody id="yearStudentsTable">
-                    <tr>
-                        <td colspan="6">Select a year level.</td>
-                    </tr>
-                </tbody>
-            </table>
+    <p class="subtitle">
+        Display your original About Me endpoint.
+    </p>
+
+    <div class="panel">
+
+        <span class="endpoint">
+            GET /about
+        </span>
+
+        <div class="actions">
+
+            <button class="btn" id="loadAbout">
+                Load About Me
+            </button>
+
         </div>
-    </section>
+
+        <pre class="output" id="aboutResult">Click the button to retrieve profile information.</pre>
+
+    </div>
+
+</section>
+
+<div class="footer">
+    StudentHub · Laboratory Activity 8 ·
+    Created by Jasmine Rose Biboso | BSIT 3A
+</div>
 
 </main>
+</div>
 
-<footer></footer>
+<!-- ==========================
+     JAVASCRIPT
+========================== -->
 
 <script>
 
-/* FETCH JSON FROM THE FLASK API */
-async function fetchJSON(url, options = {}) {
+const $ = id => document.getElementById(id);
+
+let localStudents = [];
+let remoteStudents = [];
+let editingId = null;
+
+/* ==========================
+   NAVIGATION
+========================== */
+
+function showPage(page) {
+
+    document.querySelectorAll('.page').forEach(el => {
+        el.classList.toggle(
+            'active',
+            el.id === 'page-' + page
+        );
+    });
+
+    document.querySelectorAll('.nav-link').forEach(el => {
+        el.classList.toggle(
+            'active',
+            el.dataset.page === page
+        );
+    });
+
+    const titles = {
+        dashboard:'Dashboard',
+        records:'My Records',
+        manage:'Student Management',
+        search:'Search & Filters',
+        remote:"Classmate's Records",
+        student:'Student Information',
+        greeting:'Greeting API',
+        about:'About Me'
+    };
+
+    $('topTitle').textContent =
+        titles[page] || 'StudentHub';
+
+    $('sidebar').classList.remove('open');
+
+    window.scrollTo({
+        top:0,
+        behavior:'smooth'
+    });
+}
+
+document.querySelectorAll('[data-page]').forEach(button => {
+
+    button.addEventListener('click', () => {
+
+        if (button.dataset.page === 'manage') {
+            clearForm();
+        }
+
+        showPage(button.dataset.page);
+    });
+});
+
+document.querySelectorAll('[data-go]').forEach(button => {
+
+    button.addEventListener('click', () => {
+        showPage(button.dataset.go);
+    });
+});
+
+$('menuToggle').onclick = () => {
+    $('sidebar').classList.toggle('open');
+};
+
+/* ==========================
+   BACK BUTTONS
+========================== */
+
+function backToRecords() {
+    clearForm();
+    showPage('records');
+}
+
+$('backToRecordsTop').onclick = backToRecords;
+$('backToRecordsBottom').onclick = backToRecords;
+
+$('addFromRecords').onclick = () => {
+    clearForm();
+    showPage('manage');
+};
+
+/* ==========================
+   API FETCH
+========================== */
+
+async function api(url, options = {}) {
+
     const response = await fetch(url, options);
 
     let data;
 
     try {
         data = await response.json();
-    } catch (error) {
-        throw new Error("The server did not return valid JSON.");
+    } catch {
+        throw new Error(
+            'Server did not return valid JSON.'
+        );
     }
 
     if (!response.ok) {
-        throw new Error(data.error || "Request failed.");
+        throw new Error(
+            data.error ||
+            `Request failed (${response.status})`
+        );
     }
 
     return data;
 }
 
-/* DISPLAY ERRORS */
-function showError(elementId, error) {
-    document.getElementById(elementId).textContent =
-        "Error: " + error.message;
+/* ==========================
+   TABLE HELPERS
+========================== */
+
+function td(row, value) {
+
+    const cell = row.insertCell();
+
+    cell.textContent = value ?? '';
+
+    return cell;
 }
 
-/* LOAD STUDENT INFORMATION */
-async function loadStudent() {
-    try {
-        const data = await fetchJSON("/student");
+function createButton(label, className, callback) {
 
-        document.getElementById("studentResult").textContent =
-            JSON.stringify(data, null, 2);
+    const button = document.createElement('button');
 
-    } catch (error) {
-        showError("studentResult", error);
-    }
+    button.className = 'btn small ' + className;
+
+    button.textContent = label;
+
+    button.onclick = callback;
+
+    return button;
 }
 
-/* PERSONALIZED GREETING */
-async function sayHello() {
-    const name = document.getElementById("helloName").value.trim();
+function fillTable(tableId, students, columns) {
 
-    try {
-        const data = await fetchJSON(
-            "/hello?name=" + encodeURIComponent(name)
-        );
+    const body = $(tableId);
 
-        document.getElementById("helloResult").textContent =
-            JSON.stringify(data, null, 2);
+    body.replaceChildren();
 
-    } catch (error) {
-        showError("helloResult", error);
-    }
-}
+    if (!students.length) {
 
-/* LOAD ABOUT ME */
-async function loadAbout() {
-    try {
-        const data = await fetchJSON("/about");
+        const row = body.insertRow();
 
-        document.getElementById("aboutResult").textContent =
-            JSON.stringify(data, null, 2);
-
-    } catch (error) {
-        showError("aboutResult", error);
-    }
-}
-
-/* DISPLAY STUDENT RECORDS IN A TABLE */
-function displayStudents(tableId, students) {
-    const table = document.getElementById(tableId);
-
-    table.replaceChildren();
-
-    if (!Array.isArray(students) || students.length === 0) {
-        const row = table.insertRow();
-        const cell = row.insertCell();
-
-        cell.colSpan = 6;
-        cell.textContent = "No matching students found.";
+        td(row, 'No records found.').colSpan =
+            columns.length;
 
         return;
     }
 
     students.forEach(student => {
-        const row = table.insertRow();
 
-        [
-            student.id,
-            student.student_id,
-            student.name,
-            student.program,
-            student.year,
-            student.section
-        ].forEach(value => {
-            const cell = row.insertCell();
+        const row = body.insertRow();
 
-            cell.textContent = value ?? "";
+        columns.forEach(column => {
+            td(row, student[column]);
         });
     });
 }
 
-/* LOAD ALL STUDENTS FROM SQLITE */
-async function loadStudents() {
-    const status = document.getElementById("allStatus");
+/* ==========================
+   LOAD LOCAL STUDENTS
+========================== */
 
-    status.textContent = "Loading student records...";
-
-    try {
-        const data = await fetchJSON("/students");
-
-        displayStudents("allStudentsTable", data.students);
-
-        status.textContent =
-            "Total student records: " + data.count;
-
-    } catch (error) {
-        status.textContent = "Error: " + error.message;
-    }
-}
-
-/* SEARCH STUDENT BY DATABASE ID */
-async function loadStudentById() {
-    const id = document.getElementById("studentDbId").value;
-
-    if (!id || Number(id) < 1) {
-        document.getElementById("singleStudentResult").textContent =
-            "Please enter a valid database ID.";
-
-        return;
-    }
+async function loadLocal() {
 
     try {
-        const data = await fetchJSON(
-            "/students/" + encodeURIComponent(id)
-        );
 
-        document.getElementById("singleStudentResult").textContent =
-            JSON.stringify(data, null, 2);
+        const data = await api('/api/students');
 
-    } catch (error) {
-        showError("singleStudentResult", error);
-    }
-}
+        localStudents = Array.isArray(data)
+            ? data
+            : data.students || [];
 
-/* FILTER STUDENTS BY PROGRAM */
-async function filterStudentsByProgram() {
-    const program =
-        document.getElementById("programName").value.trim();
+        renderLocal();
 
-    const status = document.getElementById("programStatus");
+        $('connectionBadge').textContent =
+            '● Local API Online';
 
-    if (!program) {
-        status.textContent = "Please enter a program.";
+        $('statTotal').textContent =
+            localStudents.length;
 
-        return;
-    }
+        $('statBSIT').textContent =
+            localStudents.filter(student =>
+                String(student.program)
+                    .toUpperCase() === 'BSIT'
+            ).length;
 
-    status.textContent = "Loading student records...";
+        $('statYears').textContent =
+            new Set(
+                localStudents.map(student => student.year)
+            ).size;
 
-    try {
-        const data = await fetchJSON(
-            "/students/program/" + encodeURIComponent(program)
-        );
+        const recent = $('recentList');
 
-        displayStudents("programStudentsTable", data.students);
+        recent.replaceChildren();
 
-        status.textContent =
-            `Program: ${data.program} | Results: ${data.count}`;
+        if (!localStudents.length) {
+            recent.textContent =
+                'No student records yet.';
+        }
 
-    } catch (error) {
-        status.textContent = "Error: " + error.message;
-    }
-}
+        [...localStudents]
+            .sort((a,b) => b.id - a.id)
+            .slice(0,5)
+            .forEach(student => {
 
-/* FILTER STUDENTS BY YEAR LEVEL */
-async function filterStudentsByYear() {
-    const year = document.getElementById("yearLevel").value;
+                const div =
+                    document.createElement('div');
 
-    const status = document.getElementById("yearStatus");
+                div.className = 'mini-item';
 
-    status.textContent = "Loading student records...";
+                const left =
+                    document.createElement('div');
 
-    try {
-        const data = await fetchJSON("/students/year/" + year);
+                const name =
+                    document.createElement('strong');
 
-        displayStudents("yearStudentsTable", data.students);
+                name.textContent = student.name;
 
-        status.textContent =
-            `Year ${data.year} | Results: ${data.count}`;
+                const small =
+                    document.createElement('small');
 
-    } catch (error) {
-        status.textContent = "Error: " + error.message;
-    }
-}
+                small.textContent =
+                    `${student.student_id} · ${student.program} · Year ${student.year}`;
 
-/* ADD A NEW STUDENT TO THE SQLITE DATABASE */
-document.getElementById("addStudentForm").addEventListener(
-    "submit",
-    async function(event) {
-        event.preventDefault();
+                left.append(name,small);
 
-        const status = document.getElementById("addStudentStatus");
-        const result = document.getElementById("addStudentResult");
-        const button = document.getElementById("addStudentButton");
+                const tag =
+                    document.createElement('span');
 
-        const student = {
-            student_id:
-                document.getElementById("newStudentId").value.trim(),
+                tag.className = 'tag';
 
-            name:
-                document.getElementById("newStudentName").value.trim(),
+                tag.textContent = student.section;
 
-            program:
-                document.getElementById("newStudentProgram").value.trim(),
+                div.append(left,tag);
 
-            year:
-                Number(document.getElementById("newStudentYear").value),
-
-            section:
-                document.getElementById("newStudentSection").value.trim()
-        };
-
-        button.disabled = true;
-        status.textContent = "Saving student...";
-
-        try {
-            const data = await fetchJSON("/students", {
-                method: "POST",
-
-                headers: {
-                    "Content-Type": "application/json"
-                },
-
-                body: JSON.stringify(student)
+                recent.append(div);
             });
 
-            status.textContent =
-                data.message || "Student added successfully.";
+    } catch(error) {
 
-            result.textContent =
-                JSON.stringify(data.student, null, 2);
+        $('connectionBadge').textContent =
+            '● API Unavailable';
 
-            document.getElementById("addStudentForm").reset();
+        $('localStatus').textContent =
+            error.message;
 
-            /* Refresh the displayed records */
-            await loadStudents();
-            await filterStudentsByYear();
-            await filterStudentsByProgram();
-
-        } catch (error) {
-            status.textContent = "Failed to add student.";
-            result.textContent = error.message;
-
-        } finally {
-            button.disabled = false;
-        }
+        $('recentList').textContent =
+            'Unable to load local records.';
     }
-);
+}
 
-/* LOAD INITIAL DATABASE RECORDS */
-document.addEventListener("DOMContentLoaded", () => {
-    loadStudents();
-    filterStudentsByYear();
-});
+/* ==========================
+   RENDER LOCAL RECORDS
+========================== */
+
+function renderLocal() {
+
+    const query =
+        $('localSearch').value.toLowerCase().trim();
+
+    const filtered = localStudents.filter(student =>
+
+        ['student_id','name','program','section'].some(key =>
+
+            String(student[key] ?? '')
+                .toLowerCase()
+                .includes(query)
+        )
+    );
+
+    const body = $('localBody');
+
+    body.replaceChildren();
+
+    $('localStatus').textContent =
+        `Showing ${filtered.length} of ${localStudents.length} local records.`;
+
+    if (!filtered.length) {
+
+        td(
+            body.insertRow(),
+            'No matching records.'
+        ).colSpan = 7;
+
+        return;
+    }
+
+    filtered.forEach(student => {
+
+        const row = body.insertRow();
+
+        [
+            'id',
+            'student_id',
+            'name',
+            'program',
+            'year',
+            'section'
+        ].forEach(key => {
+            td(row,student[key]);
+        });
+
+        const actions = row.insertCell();
+
+        actions.append(
+
+            createButton(
+                'View',
+                'teal',
+                () => viewLocal(student.id)
+            ),
+
+            createButton(
+                'Edit',
+                'warning',
+                () => editLocal(student.id)
+            ),
+
+            createButton(
+                'Delete',
+                'danger',
+                () => deleteLocal(student.id)
+            )
+        );
+    });
+}
+
+/* ==========================
+   CLEAR FORM
+========================== */
+
+function clearForm() {
+
+    $('studentForm').reset();
+
+    editingId = null;
+
+    $('formHeading').textContent =
+        'Add New Student';
+
+    $('saveBtn').textContent =
+        'Save Student';
+}
+
+/* ==========================
+   EDIT STUDENT
+========================== */
+
+function editLocal(id) {
+
+    const student = localStudents.find(
+        item => item.id === id
+    );
+
+    if (!student) return;
+
+    editingId = id;
+
+    [
+        'student_id',
+        'name',
+        'program',
+        'year',
+        'section'
+    ].forEach(key => {
+        $(key).value = student[key];
+    });
+
+    $('formHeading').textContent =
+        'Edit Student Information';
+
+    $('saveBtn').textContent =
+        'Update Student';
+
+    showPage('manage');
+}
+
+/* ==========================
+   VIEW STUDENT
+========================== */
+
+async function viewLocal(id) {
+
+    showPage('search');
+
+    $('searchId').value = id;
+
+    await searchById();
+}
+
+/* ==========================
+   DELETE STUDENT
+========================== */
+
+async function deleteLocal(id) {
+
+    if (!confirm(
+        'Are you sure you want to delete this student record?'
+    )) {
+        return;
+    }
+
+    try {
+
+        const data = await api(
+            '/api/students/' + id,
+            {
+                method:'DELETE'
+            }
+        );
+
+        if (editingId === id) {
+            clearForm();
+        }
+
+        await refreshAll();
+
+        $('localStatus').textContent =
+            data.message ||
+            'Student deleted successfully.';
+
+    } catch(error) {
+
+        alert(
+            'Delete failed: ' + error.message
+        );
+    }
+}
+
+/* ==========================
+   ADD / UPDATE STUDENT
+========================== */
+
+$('studentForm').onsubmit = async event => {
+
+    event.preventDefault();
+
+    const student = {
+
+        student_id:$('student_id').value.trim(),
+
+        name:$('name').value.trim(),
+
+        program:$('program').value.trim(),
+
+        year:Number($('year').value),
+
+        section:$('section').value.trim()
+    };
+
+    const editing = editingId !== null;
+
+    const url = editing
+        ? '/api/students/' + editingId
+        : '/api/students';
+
+    $('saveBtn').disabled = true;
+
+    $('formStatus').textContent = 'Saving...';
+
+    try {
+
+        const result = await api(url, {
+
+            method:editing ? 'PUT' : 'POST',
+
+            headers:{
+                'Content-Type':'application/json'
+            },
+
+            body:JSON.stringify(student)
+        });
+
+        $('formResult').textContent =
+            JSON.stringify(
+                result.student || result,
+                null,
+                2
+            );
+
+        $('formStatus').textContent =
+            result.message ||
+            'Saved successfully.';
+
+        clearForm();
+
+        await refreshAll();
+
+    } catch(error) {
+
+        $('formStatus').textContent =
+            'Error: ' + error.message;
+
+    } finally {
+
+        $('saveBtn').disabled = false;
+    }
+};
+
+/* ==========================
+   SEARCH BY ID
+========================== */
+
+async function searchById() {
+
+    const id = Number(
+        $('searchId').value
+    );
+
+    if (!Number.isInteger(id) || id < 1) {
+
+        $('searchResult').textContent =
+            'Enter a valid database ID.';
+
+        return;
+    }
+
+    try {
+
+        const student = await api(
+            '/students/' + id
+        );
+
+        $('searchResult').textContent =
+            JSON.stringify(
+                student,
+                null,
+                2
+            );
+
+    } catch(error) {
+
+        $('searchResult').textContent =
+            'Error: ' + error.message;
+    }
+}
+
+/* ==========================
+   FILTER BY PROGRAM
+========================== */
+
+async function filterProgram() {
+
+    const program =
+        $('filterProgram').value.trim();
+
+    if (!program) {
+
+        $('programStatus').textContent =
+            'Please enter a program.';
+
+        return;
+    }
+
+    $('programStatus').textContent =
+        'Loading program records...';
+
+    try {
+
+        const data = await api(
+            '/students/program/' +
+            encodeURIComponent(program)
+        );
+
+        fillTable(
+            'programBody',
+            data.students,
+            [
+                'id',
+                'student_id',
+                'name',
+                'program',
+                'year',
+                'section'
+            ]
+        );
+
+        $('programStatus').textContent =
+            `${data.count} matching student records for ${program}.`;
+
+    } catch(error) {
+
+        $('programStatus').textContent =
+            'Error: ' + error.message;
+    }
+}
+
+/* ==========================
+   FILTER BY YEAR LEVEL
+========================== */
+
+async function filterYear() {
+
+    const year =
+        $('filterYear').value;
+
+    $('yearStatus').textContent =
+        'Loading year level records...';
+
+    try {
+
+        const data = await api(
+            '/students/year/' + year
+        );
+
+        fillTable(
+            'yearBody',
+            data.students,
+            [
+                'id',
+                'student_id',
+                'name',
+                'program',
+                'year',
+                'section'
+            ]
+        );
+
+        $('yearStatus').textContent =
+            `${data.count} matching records for Year ${year}.`;
+
+    } catch(error) {
+
+        $('yearStatus').textContent =
+            'Error: ' + error.message;
+    }
+}
+
+/* ==========================
+   REFRESH ALL
+========================== */
+
+async function refreshAll() {
+
+    await loadLocal();
+
+    await Promise.all([
+        filterProgram(),
+        filterYear()
+    ]);
+}
+
+/* ==========================
+   CLASSMATE RECORDS
+========================== */
+
+async function loadRemote() {
+
+    $('remoteStatus').textContent =
+        'Connecting to classmate API...';
+
+    const body = $('remoteBody');
+
+    body.replaceChildren();
+
+    try {
+
+        const data = await api(
+            '/api/classmate'
+        );
+
+        remoteStudents = Array.isArray(data)
+            ? data
+            : data.students || [];
+
+        $('statRemote').textContent =
+            remoteStudents.length;
+
+        $('remoteStatus').textContent =
+            `${remoteStudents.length} remote records loaded (read-only).`;
+
+        $('dashboardNotice').textContent =
+            'Classmate API connected. Remote records are read-only.';
+
+        if (!remoteStudents.length) {
+
+            td(
+                body.insertRow(),
+                'No remote records available.'
+            ).colSpan = 6;
+
+            return;
+        }
+
+        remoteStudents.forEach((student,index) => {
+
+            const row = body.insertRow();
+
+            [
+                'student_id',
+                'name',
+                'program',
+                'year',
+                'section'
+            ].forEach(key => {
+                td(row,student[key]);
+            });
+
+            const action = row.insertCell();
+
+            action.append(
+
+                createButton(
+                    'View Details',
+                    'teal',
+                    () => {
+
+                        $('remoteDetails').textContent =
+                            JSON.stringify(
+                                remoteStudents[index],
+                                null,
+                                2
+                            );
+                    }
+                )
+            );
+        });
+
+    } catch(error) {
+
+        $('remoteStatus').textContent =
+            'Remote API: ' + error.message;
+
+        $('statRemote').textContent =
+            '—';
+
+        $('dashboardNotice').textContent =
+            'Classmate API not configured or unavailable.';
+
+        td(
+            body.insertRow(),
+            'Unable to retrieve remote records.'
+        ).colSpan = 6;
+    }
+}
+
+/* ==========================
+   OTHER API FUNCTIONS
+========================== */
+
+async function simpleFetch(url,target) {
+
+    try {
+
+        const data = await api(url);
+
+        $(target).textContent =
+            JSON.stringify(
+                data,
+                null,
+                2
+            );
+
+    } catch(error) {
+
+        $(target).textContent =
+            'Error: ' + error.message;
+    }
+}
+
+/* ==========================
+   BUTTON EVENTS
+========================== */
+
+$('localSearch').oninput = renderLocal;
+
+$('refreshLocal').onclick = refreshAll;
+
+$('clearBtn').onclick = clearForm;
+
+$('searchIdBtn').onclick = searchById;
+
+$('filterProgramBtn').onclick = filterProgram;
+
+$('filterYearBtn').onclick = filterYear;
+
+$('refreshRemote').onclick = loadRemote;
+
+$('loadStudent').onclick = () => {
+
+    simpleFetch(
+        '/student',
+        'studentResult'
+    );
+};
+
+$('sayHello').onclick = () => {
+
+    const name =
+        $('helloName').value.trim();
+
+    simpleFetch(
+        '/hello?name=' +
+        encodeURIComponent(name),
+        'helloResult'
+    );
+};
+
+$('loadAbout').onclick = () => {
+
+    simpleFetch(
+        '/about',
+        'aboutResult'
+    );
+};
+
+/* ==========================
+   INITIAL LOAD
+========================== */
+
+refreshAll();
+
+loadRemote();
 
 </script>
 
 </body>
 </html>
+s
