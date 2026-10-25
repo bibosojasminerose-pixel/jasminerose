@@ -3,11 +3,11 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>StudentHub | Laboratory Activity 8</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>StudentHub | Laboratory Activity 9</title>
 
 <style>
-:root {
+:root{
     --navy:#14264c;
     --blue:#315dd5;
     --violet:#7355d9;
@@ -15,86 +15,65 @@
     --ink:#1e2a44;
     --muted:#71809a;
     --line:#e5eaf5;
-    --white:#ffffff;
+    --white:#fff;
     --shadow:0 12px 35px rgba(35,52,94,.07);
 }
-
-* {
-    box-sizing:border-box;
-}
-
-body {
+*{box-sizing:border-box}
+body{
     margin:0;
-    font-family:'Segoe UI',Arial,sans-serif;
-    color:var(--ink);
+    font-family:"Segoe UI",Arial,sans-serif;
     background:var(--bg);
+    color:var(--ink);
 }
+button,input,select{font:inherit}
+button{cursor:pointer}
+button:disabled{opacity:.55;cursor:not-allowed}
 
-button,input,select {
-    font:inherit;
-}
-
-button {
-    cursor:pointer;
-}
-
-/* ==========================
-   SIDEBAR
-========================== */
-
-.sidebar {
+/* SIDEBAR */
+.sidebar{
     position:fixed;
     inset:0 auto 0 0;
     width:260px;
-    background:linear-gradient(
-        170deg,
-        #162b57,
-        #222b65 65%,
-        #413179
-    );
+    background:linear-gradient(170deg,#162b57,#222b65 65%,#413179);
     color:white;
     display:flex;
     flex-direction:column;
     z-index:30;
-    box-shadow:8px 0 30px #14264c12;
+    transition:transform .25s;
 }
-
-.brand {
+.brand{
     padding:30px 24px 25px;
     border-bottom:1px solid #ffffff1c;
 }
-
-.brand strong {
+.brand strong{
     display:block;
     font-size:24px;
     letter-spacing:-.8px;
 }
-
-.brand small {
+.brand small{
+    display:block;
     color:#b9c8eb;
     font-size:11px;
+    margin-top:5px;
 }
-
-.menu {
+.menu{
     padding:20px 12px;
     overflow-y:auto;
     flex:1;
 }
-
-.menu-label {
+.menu-label{
     font-size:10px;
     letter-spacing:2px;
     color:#aebce1;
     padding:16px 14px 9px;
     font-weight:800;
 }
-
-.nav-link {
+.nav-link{
     display:flex;
     gap:12px;
     align-items:center;
     width:100%;
-    border:none;
+    border:0;
     background:none;
     color:#cdd7f4;
     padding:13px 15px;
@@ -104,24 +83,19 @@ button {
     font-weight:600;
     font-size:13px;
 }
-
-.nav-link:hover,
-.nav-link.active {
+.nav-link:hover,.nav-link.active{
     background:#ffffff1c;
     color:white;
 }
-
-.nav-link.active {
+.nav-link.active{
     box-shadow:inset 3px 0 #a5b8ff;
 }
-
-.nav-icon {
+.nav-icon{
     width:23px;
     text-align:center;
     font-size:17px;
 }
-
-.sidebar-foot {
+.sidebar-foot{
     padding:18px 23px;
     border-top:1px solid #ffffff1c;
     color:#aebce1;
@@ -129,19 +103,15 @@ button {
     line-height:1.8;
 }
 
-/* ==========================
-   MAIN WORKSPACE
-========================== */
-
-.workspace {
+/* MAIN LAYOUT */
+.workspace{
     margin-left:260px;
     min-height:100vh;
     min-width:0;
 }
-
-.topbar {
+.topbar{
     height:86px;
-    background:#ffffffdc;
+    background:#ffffffed;
     border-bottom:1px solid var(--line);
     display:flex;
     align-items:center;
@@ -153,26 +123,21 @@ button {
     z-index:10;
     backdrop-filter:blur(12px);
 }
-
-.topbar h1 {
+.topbar h1{
     font-size:21px;
     margin:0;
-    letter-spacing:-.6px;
 }
-
-.topbar p {
+.topbar p{
     font-size:12px;
     color:var(--muted);
     margin:5px 0 0;
 }
-
-.top-right {
+.top-right{
     display:flex;
     align-items:center;
     gap:12px;
 }
-
-.pill {
+.pill{
     border-radius:100px;
     padding:9px 13px;
     background:#edf5ff;
@@ -180,8 +145,7 @@ button {
     font-size:12px;
     font-weight:700;
 }
-
-.avatar {
+.avatar{
     width:40px;
     height:40px;
     display:grid;
@@ -191,36 +155,22 @@ button {
     color:#573eb8;
     font-weight:900;
 }
-
-.content {
+.content{
     max-width:1600px;
     margin:auto;
     padding:30px 34px 55px;
     min-width:0;
 }
-
-.page {
+.page{
     display:none;
     animation:rise .2s ease;
-    min-width:0;
 }
-
-.page.active {
-    display:block;
+.page.active{display:block}
+@keyframes rise{
+    from{opacity:.6;transform:translateY(7px)}
+    to{opacity:1;transform:none}
 }
-
-@keyframes rise {
-    from {
-        opacity:.6;
-        transform:translateY(7px);
-    }
-    to {
-        opacity:1;
-        transform:none;
-    }
-}
-
-.eyebrow {
+.eyebrow{
     font-size:12px;
     text-transform:uppercase;
     letter-spacing:1.8px;
@@ -228,261 +178,177 @@ button {
     color:var(--violet);
     margin-bottom:8px;
 }
-
-.page-title {
+.page-title{
     font-size:28px;
     letter-spacing:-1px;
     margin:0 0 7px;
 }
-
-.subtitle {
+.subtitle{
     color:var(--muted);
     font-size:14px;
     line-height:1.6;
     margin:0 0 25px;
 }
 
-/* ==========================
-   DASHBOARD
-========================== */
-
-.hero {
-    background:linear-gradient(
-        115deg,
-        #253e84,
-        #6452bd
-    );
+/* DASHBOARD */
+.hero{
+    background:linear-gradient(115deg,#253e84,#6452bd);
     border-radius:22px;
     padding:32px;
     color:white;
     display:flex;
     justify-content:space-between;
-    gap:20px;
     align-items:center;
-    box-shadow:var(--shadow);
+    gap:20px;
     margin-bottom:24px;
-    overflow:hidden;
+    box-shadow:var(--shadow);
 }
-
-.hero h2 {
+.hero h2{
     font-size:29px;
-    margin:6px 0 9px;
-    letter-spacing:-1px;
+    margin:8px 0;
 }
-
-.hero p {
-    max-width:560px;
-    line-height:1.65;
+.hero p{
+    max-width:600px;
+    line-height:1.7;
     color:#e4eaff;
-    margin:0;
 }
-
-.hero-art {
-    font-size:80px;
+.hero-art{
+    font-size:75px;
     opacity:.45;
 }
-
-.stats {
+.stats{
     display:grid;
     grid-template-columns:repeat(4,minmax(0,1fr));
     gap:16px;
     margin-bottom:22px;
 }
-
-.stat,
-.panel {
+.stat,.panel{
     background:white;
     border:1px solid var(--line);
     box-shadow:var(--shadow);
     border-radius:18px;
     min-width:0;
 }
-
-.stat {
-    padding:22px;
-}
-
-.stat .symbol {
-    font-size:22px;
+.stat{padding:22px}
+.symbol{
+    font-size:23px;
     background:#f0efff;
-    width:44px;
-    height:44px;
+    width:45px;
+    height:45px;
     display:grid;
     place-items:center;
     border-radius:13px;
 }
-
-.stat .num {
+.num{
     font-size:30px;
     font-weight:850;
-    letter-spacing:-1px;
     margin:15px 0 3px;
 }
-
-.stat .label {
+.stat-label{
     font-size:12px;
     color:var(--muted);
     font-weight:600;
 }
-
-.panel {
+.panel{
     padding:24px;
     margin-bottom:20px;
 }
-
-.panel h3 {
+.panel h3{
     margin:0 0 8px;
     font-size:17px;
 }
-
-.panel p {
+.panel p{
     color:var(--muted);
     line-height:1.6;
     font-size:13px;
 }
-
-.dashboard-grid {
+.dashboard-grid{
     display:grid;
     grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);
     gap:20px;
 }
-
-.mini-list {
-    display:grid;
-    gap:12px;
-    margin-top:18px;
-}
-
-.mini-item {
+.mini-item{
     display:flex;
-    align-items:center;
     justify-content:space-between;
+    align-items:center;
     gap:12px;
+    padding:13px 0;
     border-bottom:1px solid var(--line);
-    padding-bottom:11px;
 }
-
-.mini-item:last-child {
-    border:0;
-}
-
-.mini-item strong {
+.mini-item strong{
     display:block;
     font-size:13px;
 }
-
-.mini-item small {
+.mini-item small{
     color:var(--muted);
     font-size:11px;
 }
-
-.tag {
-    background:#eff3ff;
-    color:#315dd5;
+.tag,.source-tag{
+    display:inline-block;
     border-radius:50px;
     padding:6px 10px;
     font-size:11px;
     font-weight:800;
+    white-space:nowrap;
 }
+.tag{background:#eff3ff;color:#315dd5}
+.source-local{background:#e8f1ff;color:#2856a7}
+.source-imported{background:#eee9ff;color:#6745bd}
+.source-external{background:#e3f6f0;color:#14785d}
 
-/* ==========================
-   BUTTONS
-========================== */
-
-.actions {
+/* BUTTONS */
+.actions{
     display:flex;
     gap:10px;
     flex-wrap:wrap;
-    margin-top:15px;
+    margin:15px 0;
 }
-
-.btn {
+.btn{
+    border:0;
     background:var(--blue);
     color:white;
-    border:0;
     padding:11px 16px;
     border-radius:11px;
     font-weight:750;
     font-size:13px;
     transition:.2s;
 }
-
-.btn:hover {
+.btn:hover:not(:disabled){
     filter:brightness(.94);
     transform:translateY(-1px);
 }
-
-.btn:disabled {
-    opacity:.5;
-    cursor:wait;
-}
-
-.btn.secondary {
-    background:#eef1fb;
-    color:#344b83;
-}
-
-.btn.danger {
-    background:#ffe8ed;
-    color:#b72e4b;
-}
-
-.btn.warning {
-    background:#fff1d9;
-    color:#a66b13;
-}
-
-.btn.teal {
-    background:#e4f6f5;
-    color:#167e77;
-}
-
-.btn.small {
+.btn.secondary{background:#eef1fb;color:#344b83}
+.btn.danger{background:#ffe8ed;color:#b72e4b}
+.btn.warning{background:#fff1d9;color:#a66b13}
+.btn.teal{background:#e4f6f5;color:#167e77}
+.btn.small{
     padding:8px 10px;
     font-size:11px;
     margin:2px;
 }
-
-.back-btn {
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
+.back-btn{
     margin-bottom:22px;
     background:#e9edfa;
     color:#2d477e;
     border:1px solid #dce4f7;
     padding:11px 16px;
     border-radius:11px;
-    font-size:13px;
     font-weight:750;
-    transition:.2s;
 }
 
-.back-btn:hover {
-    background:#dce5fb;
-    transform:translateX(-3px);
-}
-
-/* ==========================
-   FORMS
-========================== */
-
-.form-grid {
+/* FORMS */
+.form-grid{
     display:grid;
     grid-template-columns:repeat(2,minmax(0,1fr));
     gap:17px;
 }
-
-.field label {
+.field label{
     display:block;
     font-weight:700;
     font-size:12px;
     margin-bottom:7px;
 }
-
-.field input,
-.field select,
-.search-input {
+.field input,.field select,.search-input{
     width:100%;
     border:1px solid #dce3f1;
     border-radius:11px;
@@ -491,15 +357,12 @@ button {
     color:var(--ink);
     outline:none;
 }
-
-.field input:focus,
-.field select:focus,
-.search-input:focus {
+.field input:focus,.field select:focus,
+.search-input:focus{
     border-color:#786be0;
     box-shadow:0 0 0 3px #786be019;
 }
-
-.toolbar {
+.toolbar{
     display:flex;
     justify-content:space-between;
     align-items:center;
@@ -507,182 +370,69 @@ button {
     flex-wrap:wrap;
     margin:17px 0;
 }
+.search-input{max-width:360px}
 
-.search-input {
-    max-width:360px;
-}
-
-/* ==========================
-   TABLES
-========================== */
-
-.table-wrap {
+/* TABLES */
+.table-wrap{
     width:100%;
-    max-width:100%;
     overflow-x:auto;
     border:1px solid var(--line);
     border-radius:13px;
 }
-
-table {
+table{
     border-collapse:collapse;
     width:100%;
-    min-width:680px;
+    min-width:750px;
 }
-
-th,
-td {
+th,td{
     padding:14px 13px;
     text-align:left;
     border-bottom:1px solid var(--line);
     font-size:12px;
 }
-
-th {
+th{
     color:#687997;
     background:#f8faff;
     font-weight:800;
     white-space:nowrap;
 }
+td{color:#34405b}
+tbody tr:hover{background:#fafbff}
+tbody tr:last-child td{border-bottom:0}
 
-td {
-    color:#34405b;
-}
-
-tbody tr:last-child td {
-    border-bottom:0;
-}
-
-tbody tr:hover {
-    background:#fafbff;
-}
-
-/* ==========================
-   IMPROVED FILTER CARDS
-   FULL WIDTH AND SPACIOUS
-========================== */
-
-.filter-layout {
+/* FILTERS */
+.filter-layout{
     display:grid;
-    grid-template-columns:minmax(0,1fr);
-    gap:22px;
-    width:100%;
+    grid-template-columns:1fr;
+    gap:20px;
 }
-
-.filter-card {
-    width:100%;
-    min-width:0;
-    padding:28px 30px;
-    border-radius:20px;
-}
-
-.filter-card h3 {
-    font-size:19px;
-    color:#233b7a;
-    margin-bottom:8px;
-}
-
-.filter-card .filter-description {
-    font-size:13px;
-    color:var(--muted);
-    margin-bottom:18px;
-}
-
-.filter-toolbar {
+.filter-toolbar{
     display:flex;
     align-items:flex-end;
     gap:14px;
     flex-wrap:wrap;
     margin:18px 0;
 }
-
-.filter-field {
+.filter-field{
     width:100%;
     max-width:400px;
 }
-
-.filter-field label {
+.filter-field label{
     display:block;
     font-size:12px;
     font-weight:750;
-    color:#3b4b70;
     margin-bottom:8px;
 }
-
-.filter-field input,
-.filter-field select {
+.filter-field input,.filter-field select{
     width:100%;
     min-height:46px;
     border:1px solid #dce3f1;
     border-radius:11px;
-    background:#fff;
+    background:white;
     padding:12px 14px;
-    outline:none;
-    color:var(--ink);
 }
-
-.filter-field input:focus,
-.filter-field select:focus {
-    border-color:#786be0;
-    box-shadow:0 0 0 3px #786be019;
-}
-
-.filter-toolbar .btn {
-    min-height:46px;
-    padding:12px 24px;
-}
-
-.filter-table {
-    width:100%;
-    min-width:650px;
-    table-layout:auto;
-}
-
-.filter-table th,
-.filter-table td {
-    padding:16px 18px;
-    font-size:13px;
-    vertical-align:middle;
-}
-
-.filter-table th {
-    font-size:12px;
-    color:#536487;
-    background:#f3f6ff;
-}
-
-.filter-table td {
-    overflow-wrap:anywhere;
-}
-
-.filter-table th:nth-child(1) {
-    width:9%;
-}
-
-.filter-table th:nth-child(2) {
-    width:18%;
-}
-
-.filter-table th:nth-child(3) {
-    width:28%;
-}
-
-.filter-table th:nth-child(4) {
-    width:17%;
-}
-
-.filter-table th:nth-child(5) {
-    width:13%;
-}
-
-.filter-table th:nth-child(6) {
-    width:15%;
-}
-
-.filter-result {
-    display:flex;
-    align-items:center;
-    gap:9px;
+.filter-toolbar .btn{min-height:46px}
+.filter-result{
     margin:15px 0;
     padding:13px 16px;
     border-radius:11px;
@@ -692,25 +442,19 @@ tbody tr:hover {
     font-weight:650;
 }
 
-/* ==========================
-   OTHER ELEMENTS
-========================== */
-
-.notice {
+/* OTHER */
+.notice{
     font-size:13px;
     color:#58678b;
     background:#f0f4ff;
     padding:12px 14px;
     border-radius:11px;
     margin:12px 0;
+    line-height:1.6;
 }
-
-.notice.error {
-    background:#fff0f1;
-    color:#a62742;
-}
-
-.output {
+.notice.error{background:#fff0f1;color:#a62742}
+.notice.success{background:#e8f7ef;color:#18734b}
+.output{
     background:#172448;
     color:#e7eeff;
     border-radius:13px;
@@ -722,8 +466,7 @@ tbody tr:hover {
     max-height:350px;
     overflow:auto;
 }
-
-.endpoint {
+.endpoint{
     font:11px monospace;
     background:#edf0ff;
     color:#4158a3;
@@ -732,535 +475,358 @@ tbody tr:hover {
     display:inline-block;
     margin:5px 5px 9px 0;
 }
-
-.hamburger {
+.empty{
+    color:#8994a8;
+    text-align:center;
+    padding:24px;
+}
+.footer{
+    text-align:center;
+    color:#98a2b8;
+    font-size:11px;
+    margin-top:28px;
+}
+.hamburger{
     display:none;
     border:0;
     background:#eef1fa;
     border-radius:10px;
     padding:10px;
 }
-
-.empty {
-    color:#8994a8;
-    text-align:center;
-    padding:24px;
+.modal{
+    position:fixed;
+    inset:0;
+    background:#101b39aa;
+    z-index:100;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+.modal.show{display:flex}
+.modal-card{
+    background:white;
+    width:min(540px,100%);
+    max-height:85vh;
+    overflow:auto;
+    padding:25px;
+    border-radius:20px;
+    box-shadow:0 25px 80px #0003;
+}
+.modal-card h3{margin-top:0}
+.modal-details{
+    display:grid;
+    grid-template-columns:130px 1fr;
+    gap:12px;
+    padding:15px 0;
+}
+.modal-details div{
+    padding:8px 0;
+    border-bottom:1px solid var(--line);
+    overflow-wrap:anywhere;
+}
+.modal-details .key{
+    color:var(--muted);
+    font-weight:700;
+    font-size:12px;
+}
+.modal-details .value{
+    font-size:13px;
+    font-weight:600;
 }
 
-.footer {
-    text-align:center;
-    color:#98a2b8;
-    font-size:11px;
-    margin-top:28px;
+/* RESPONSIVE */
+@media(max-width:1100px){
+    .stats{grid-template-columns:repeat(2,1fr)}
+    .dashboard-grid{grid-template-columns:1fr}
+    .content{padding:25px 22px}
 }
-
-/* ==========================
-   RESPONSIVE DESIGN
-========================== */
-
-@media(max-width:1100px) {
-    .stats {
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .dashboard-grid {
-        grid-template-columns:1fr;
-    }
-
-    .content {
-        padding:25px 22px 45px;
-    }
-
-    .filter-card {
-        padding:24px;
-    }
-}
-
-@media(max-width:760px) {
-    .sidebar {
-        transform:translateX(-100%);
-        transition:transform .25s;
-    }
-
-    .sidebar.open {
-        transform:none;
-    }
-
-    .workspace {
-        margin-left:0;
-    }
-
-    .hamburger {
-        display:block;
-    }
-
-    .topbar {
-        height:72px;
-        padding:0 17px;
-    }
-
-    .topbar h1 {
-        font-size:17px;
-    }
-
-    .top-right .pill {
-        display:none;
-    }
-
-    .content {
-        padding:20px 14px;
-    }
-
-    .hero {
-        padding:24px;
-    }
-
-    .hero h2 {
-        font-size:23px;
-    }
-
-    .hero-art {
-        display:none;
-    }
-
-    .form-grid {
-        grid-template-columns:1fr;
-    }
-
-    .stats {
-        gap:10px;
-    }
-
-    .stat {
-        padding:16px;
-    }
-
-    .stat .num {
-        font-size:25px;
-    }
-
-    .panel {
-        padding:17px;
-    }
-
-    .page-title {
-        font-size:24px;
-    }
-
-    .filter-layout {
-        gap:16px;
-    }
-
-    .filter-card {
-        padding:18px 14px;
-    }
-
-    .filter-card h3 {
-        font-size:17px;
-    }
-
-    .filter-toolbar {
-        align-items:stretch;
-        flex-direction:column;
-    }
-
-    .filter-field {
-        max-width:none;
-    }
-
-    .filter-toolbar .btn {
-        width:100%;
-    }
-
-    .filter-table {
-        min-width:620px;
-    }
-
-    .filter-table th,
-    .filter-table td {
-        padding:12px 11px;
-        font-size:12px;
-    }
+@media(max-width:760px){
+    .sidebar{transform:translateX(-100%)}
+    .sidebar.open{transform:none}
+    .workspace{margin-left:0}
+    .hamburger{display:block}
+    .topbar{height:72px;padding:0 17px}
+    .topbar h1{font-size:17px}
+    .top-right .pill{display:none}
+    .content{padding:20px 14px}
+    .hero{padding:24px}
+    .hero h2{font-size:23px}
+    .hero-art{display:none}
+    .form-grid{grid-template-columns:1fr}
+    .stats{gap:10px}
+    .stat{padding:16px}
+    .num{font-size:25px}
+    .panel{padding:17px}
+    .page-title{font-size:24px}
+    .filter-toolbar{flex-direction:column;align-items:stretch}
+    .filter-field{max-width:none}
+    .filter-toolbar .btn{width:100%}
 }
 </style>
 </head>
 
 <body>
 
-<!-- ==========================
-     SIDEBAR
-========================== -->
-
+<!-- SIDEBAR -->
 <aside class="sidebar" id="sidebar">
-
     <div class="brand">
         <strong>◈ StudentHub</strong>
-        <small>FLASK API · LABORATORY 08</small>
+        <small>FLASK API · LABORATORY 09</small>
     </div>
 
-    <div class="menu">
-
+    <nav class="menu">
         <div class="menu-label">OVERVIEW</div>
 
         <button class="nav-link active" data-page="dashboard">
-            <span class="nav-icon">▦</span>
-            Dashboard
+            <span class="nav-icon">▦</span> Integration Dashboard
         </button>
 
         <div class="menu-label">STUDENT MANAGEMENT</div>
 
         <button class="nav-link" data-page="records">
-            <span class="nav-icon">▤</span>
-            My Records
+            <span class="nav-icon">▤</span> My Records
         </button>
 
         <button class="nav-link" data-page="manage">
-            <span class="nav-icon">⊕</span>
-            Add / Edit Student
+            <span class="nav-icon">⊕</span> Add / Edit Student
         </button>
 
         <button class="nav-link" data-page="search">
-            <span class="nav-icon">⌕</span>
-            Search & Filters
+            <span class="nav-icon">⌕</span> Search & Filters
         </button>
 
-        <div class="menu-label">EXTERNAL DATA</div>
+        <div class="menu-label">SYSTEM INTEGRATION</div>
 
-        <button class="nav-link" data-page="remote">
-            <span class="nav-icon">☁</span>
-            Classmate's Records
+        <button class="nav-link" data-page="partner">
+            <span class="nav-icon">☁</span> Partner Records
+        </button>
+
+        <button class="nav-link" data-page="imported">
+            <span class="nav-icon">⇩</span> Imported Records
+        </button>
+
+        <button class="nav-link" data-page="send">
+            <span class="nav-icon">⇧</span> Send Practice Record
         </button>
 
         <div class="menu-label">PREVIOUS LAB FEATURES</div>
 
         <button class="nav-link" data-page="student">
-            <span class="nav-icon">♙</span>
-            Student Information
+            <span class="nav-icon">♙</span> Student Information
         </button>
 
         <button class="nav-link" data-page="greeting">
-            <span class="nav-icon">✉</span>
-            Greeting API
+            <span class="nav-icon">✉</span> Greeting API
         </button>
 
         <button class="nav-link" data-page="about">
-            <span class="nav-icon">ⓘ</span>
-            About Me
+            <span class="nav-icon">ⓘ</span> About Me
         </button>
-
-    </div>
+    </nav>
 
     <div class="sidebar-foot">
         Jasmine Rose Biboso · BSIT 3A
         <br>
-        SQLite · Flask · Render API
+        SQLite · Flask · Render REST API
     </div>
-
 </aside>
-
-<!-- ==========================
-     MAIN WORKSPACE
-========================== -->
 
 <div class="workspace">
 
 <header class="topbar">
-
     <div style="display:flex;align-items:center;gap:13px">
-
-        <button
-            class="hamburger"
-            id="menuToggle"
-            aria-label="Open menu">
-            ☰
-        </button>
-
+        <button class="hamburger" id="menuToggle">☰</button>
         <div>
-            <h1 id="topTitle">Dashboard</h1>
+            <h1 id="topTitle">Integration Dashboard</h1>
             <p>Student Database Management System</p>
         </div>
-
     </div>
 
     <div class="top-right">
-        <span class="pill" id="connectionBadge">
-            ● Checking API
-        </span>
-
+        <span class="pill" id="connectionBadge">● Checking API</span>
         <div class="avatar">JB</div>
     </div>
-
 </header>
 
 <main class="content">
 
-<!-- ==========================
-     DASHBOARD
-========================== -->
-
+<!-- DASHBOARD -->
 <section class="page active" id="page-dashboard">
-
-    <div class="eyebrow">
-        Overview / Laboratory 8
-    </div>
+    <div class="eyebrow">Overview / Laboratory Activity 9</div>
 
     <div class="hero">
-
         <div>
-            <small>WELCOME TO YOUR WORKSPACE</small>
-
-            <h2>Student Database Dashboard</h2>
-
+            <small>SYSTEM-TO-SYSTEM INTEGRATION</small>
+            <h2>StudentHub Integration Dashboard</h2>
             <p>
-                Monitor student information, check your
-                database summary, and access local and
-                remote API records in one organized workspace.
+                Manage your local database, retrieve classmate records,
+                import selected information, and exchange practice
+                records using Flask REST APIs.
             </p>
-
             <div class="actions">
-
-                <button class="btn" data-go="records">
-                    View My Records →
-                </button>
-
-                <button class="btn secondary" data-go="remote">
-                    Classmate's Records
-                </button>
-
+                <button class="btn" data-go="records">View My Records →</button>
+                <button class="btn secondary" data-go="partner">Partner Records</button>
             </div>
         </div>
-
         <div class="hero-art">◈</div>
-
     </div>
 
     <div class="stats">
-
         <div class="stat">
-            <div class="symbol">👥</div>
-            <div class="num" id="statTotal">—</div>
-            <div class="label">Total Students</div>
+            <div class="symbol">🏠</div>
+            <div class="num" id="statLocal">—</div>
+            <div class="stat-label">My Local Records</div>
         </div>
 
         <div class="stat">
-            <div class="symbol">🎓</div>
-            <div class="num" id="statBSIT">—</div>
-            <div class="label">BSIT Students</div>
-        </div>
-
-        <div class="stat">
-            <div class="symbol">📚</div>
-            <div class="num" id="statYears">—</div>
-            <div class="label">Year Levels Represented</div>
+            <div class="symbol">⇩</div>
+            <div class="num" id="statImported">—</div>
+            <div class="stat-label">Imported Records</div>
         </div>
 
         <div class="stat">
             <div class="symbol">☁</div>
-            <div class="num" id="statRemote">—</div>
-            <div class="label">Remote Records</div>
+            <div class="num" id="statPartner">—</div>
+            <div class="stat-label">Partner Records</div>
         </div>
 
+        <div class="stat">
+            <div class="symbol">👥</div>
+            <div class="num" id="statTotal">—</div>
+            <div class="stat-label">Total Saved Records</div>
+        </div>
     </div>
 
     <div class="dashboard-grid">
-
         <div class="panel">
-
-            <h3>Recent Student Records</h3>
-
-            <p>
-                Latest student entries from your own
-                SQLite database.
-            </p>
-
-            <div class="mini-list" id="recentList">
-                <div class="empty">
-                    Loading records...
-                </div>
-            </div>
-
+            <h3>Recent Saved Student Records</h3>
+            <p>Latest records stored in your SQLite database.</p>
+            <div id="recentList">Loading records...</div>
         </div>
 
         <div class="panel">
-
-            <h3>System Information</h3>
-
-            <p>
-                Your Flask REST API provides student
-                management and database operations.
-            </p>
-
+            <h3>Integration Status</h3>
             <div class="notice">
                 <strong>Backend:</strong> Flask REST API
-                <br><br>
+                <br>
                 <strong>Database:</strong> SQLite
-                <br><br>
+                <br>
                 <strong>Deployment:</strong> Render
-                <br><br>
-                <strong>Activity:</strong> Laboratory 8
+                <br>
+                <strong>Activity:</strong> Laboratory 9
             </div>
 
             <div class="notice" id="dashboardNotice">
-                Checking remote API connection...
+                Checking integration...
             </div>
 
+            <div class="actions">
+                <button class="btn" id="refreshDashboard">
+                    Refresh Dashboard
+                </button>
+            </div>
         </div>
-
     </div>
 
+    <div class="panel">
+        <h3>System Integration Features</h3>
+        <p>Access the four main operations required for Laboratory Activity 9.</p>
+
+        <div class="actions">
+            <button class="btn" data-go="partner">View Partner Records</button>
+            <button class="btn secondary" data-go="imported">Retrieve Imported Records</button>
+            <button class="btn teal" data-go="send">Send Practice Record</button>
+            <button class="btn secondary" data-go="records">My Database</button>
+        </div>
+    </div>
 </section>
 
-<!-- ==========================
-     MY RECORDS
-========================== -->
-
+<!-- MY RECORDS -->
 <section class="page" id="page-records">
-
     <div class="eyebrow">Student Management</div>
-
     <h2 class="page-title">My Records</h2>
-
     <p class="subtitle">
-        Manage the student information saved
-        in your SQLite database.
+        View all records stored in your SQLite database,
+        including their source information.
     </p>
 
     <div class="panel">
-
         <h3>Student Database Records</h3>
-
         <span class="endpoint">GET /api/students</span>
 
         <div class="toolbar">
-
-            <input
-                type="search"
-                id="localSearch"
-                class="search-input"
-                placeholder="Search student ID, name, program..."
-            >
+            <input id="localSearch" class="search-input"
+                   placeholder="Search ID, name, program or source...">
 
             <div class="actions">
-
-                <button class="btn secondary" id="refreshLocal">
-                    Refresh
-                </button>
-
-                <button class="btn" id="addFromRecords">
-                    + Add Student
-                </button>
-
+                <button class="btn secondary" id="refreshLocal">Refresh</button>
+                <button class="btn" id="addFromRecords">+ Add Student</button>
             </div>
-
         </div>
 
-        <div class="notice" id="localStatus">
-            Loading records...
-        </div>
+        <div class="notice" id="localStatus">Loading...</div>
 
         <div class="table-wrap">
-
             <table>
-
                 <thead>
                     <tr>
                         <th>DB ID</th>
                         <th>Student ID</th>
-                        <th>Full Name</th>
+                        <th>Complete Name</th>
                         <th>Program</th>
                         <th>Year</th>
                         <th>Section</th>
+                        <th>Source</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
-
-                <tbody id="localBody">
-                    <tr>
-                        <td colspan="7">
-                            Loading student records...
-                        </td>
-                    </tr>
-                </tbody>
-
+                <tbody id="localBody"></tbody>
             </table>
-
         </div>
-
     </div>
-
 </section>
 
-<!-- ==========================
-     ADD / EDIT STUDENT
-========================== -->
-
+<!-- ADD / EDIT -->
 <section class="page" id="page-manage">
-
-    <button
-        type="button"
-        class="back-btn"
-        id="backToRecordsTop">
+    <button class="back-btn" id="backToRecords">
         ← Back to My Records
     </button>
 
     <div class="eyebrow">Student Management</div>
-
-    <h2 class="page-title" id="formHeading">
-        Add New Student
-    </h2>
+    <h2 class="page-title" id="formHeading">Add New Student</h2>
 
     <p class="subtitle">
-        Register a new student or update an existing
-        record in the SQLite database.
+        Add or update a student record in your SQLite database.
     </p>
 
     <div class="panel">
-
         <h3>Student Information Form</h3>
-
         <span class="endpoint">POST /api/students</span>
         <span class="endpoint">PUT /api/students/{id}</span>
 
         <form id="studentForm">
-
             <div class="form-grid">
-
                 <div class="field">
-                    <label for="student_id">Student ID</label>
-
-                    <input
-                        id="student_id"
-                        required
-                        maxlength="50"
-                        placeholder="e.g. 2026-00128"
-                    >
+                    <label>Student ID</label>
+                    <input id="student_id" required maxlength="50"
+                           placeholder="e.g. LAB-001">
                 </div>
 
                 <div class="field">
-                    <label for="name">Complete Name</label>
-
-                    <input
-                        id="name"
-                        required
-                        maxlength="150"
-                        placeholder="Enter complete name"
-                    >
+                    <label>Complete Name</label>
+                    <input id="name" required maxlength="150"
+                           placeholder="Enter fictional student name">
                 </div>
 
                 <div class="field">
-                    <label for="program">Program</label>
-
-                    <input
-                        id="program"
-                        required
-                        maxlength="100"
-                        placeholder="e.g. BSIT"
-                    >
+                    <label>Program</label>
+                    <input id="program" required maxlength="100"
+                           placeholder="e.g. BSIT">
                 </div>
 
                 <div class="field">
-                    <label for="year">Year Level</label>
-
+                    <label>Year Level</label>
                     <select id="year" required>
                         <option value="1">1st Year</option>
                         <option value="2">2nd Year</option>
@@ -1270,306 +836,166 @@ tbody tr:hover {
                 </div>
 
                 <div class="field">
-                    <label for="section">Section</label>
-
-                    <input
-                        id="section"
-                        required
-                        maxlength="50"
-                        placeholder="e.g. A"
-                    >
+                    <label>Section</label>
+                    <input id="section" required maxlength="50"
+                           placeholder="e.g. A">
                 </div>
 
+                <div class="field">
+                    <label>Record Source</label>
+                    <input value="Local" disabled>
+                </div>
             </div>
 
             <div class="actions">
-
-                <button
-                    class="btn"
-                    type="submit"
-                    id="saveBtn">
+                <button type="submit" class="btn" id="saveBtn">
                     Save Student
                 </button>
-
-                <button
-                    class="btn secondary"
-                    type="button"
-                    id="clearBtn">
+                <button type="button" class="btn secondary" id="clearBtn">
                     Clear Form
                 </button>
-
-                <button
-                    class="btn secondary"
-                    type="button"
-                    id="backToRecordsBottom">
-                    ← Back to My Records
+                <button type="button" class="btn secondary"
+                        data-go="records">
+                    Back to My Records
                 </button>
-
             </div>
-
         </form>
 
         <div class="notice" id="formStatus">
             Complete the fields to save a student.
         </div>
-
         <pre class="output" id="formResult">Student information will appear here.</pre>
-
     </div>
-
 </section>
 
-<!-- ==========================
-     SEARCH AND FILTERS
-========================== -->
-
+<!-- SEARCH & FILTERS -->
 <section class="page" id="page-search">
-
     <div class="eyebrow">Student Management</div>
-
     <h2 class="page-title">Search & Filters</h2>
-
     <p class="subtitle">
-        Search student records by database ID,
-        program, or year level.
+        Search your database by ID, program, or year level.
     </p>
 
-    <!-- SEARCH BY DATABASE ID -->
-
     <div class="panel">
-
         <h3>Search Student by Database ID</h3>
-
         <span class="endpoint">GET /students/{id}</span>
 
         <div class="toolbar">
-
-            <input
-                type="number"
-                id="searchId"
-                class="search-input"
-                min="1"
-                placeholder="Enter database ID"
-            >
-
-            <button class="btn" id="searchIdBtn">
-                Search Student
-            </button>
-
+            <input type="number" min="1" id="searchId"
+                   class="search-input" placeholder="Enter database ID">
+            <button class="btn" id="searchIdBtn">Search Student</button>
         </div>
 
         <pre class="output" id="searchResult">Student details will appear here.</pre>
-
     </div>
 
-    <!-- NEW FULL WIDTH FILTER LAYOUT -->
-
     <div class="filter-layout">
-
-        <!-- FILTER BY PROGRAM -->
-
-        <div class="panel filter-card">
-
+        <div class="panel">
             <h3>🎓 Filter Students by Program</h3>
-
-            <p class="filter-description">
-                View all students enrolled in a specific
-                academic program.
-            </p>
-
-            <span class="endpoint">
-                GET /students/program/BSIT
-            </span>
+            <p>Retrieve records from a selected academic program.</p>
+            <span class="endpoint">GET /students/program/BSIT</span>
 
             <div class="filter-toolbar">
-
                 <div class="filter-field">
-
-                    <label for="filterProgram">
-                        Select / Enter Program
-                    </label>
-
-                    <input
-                        id="filterProgram"
-                        value="BSIT"
-                        placeholder="e.g. BSIT"
-                    >
-
+                    <label>Enter Program</label>
+                    <input id="filterProgram" value="BSIT">
                 </div>
-
-                <button
-                    class="btn"
-                    id="filterProgramBtn">
-                    🔍 Filter Program
+                <button class="btn" id="filterProgramBtn">
+                    Filter Program
                 </button>
-
             </div>
 
             <div class="filter-result" id="programStatus">
-                Select a program to view matching records.
+                Select a program.
             </div>
 
             <div class="table-wrap">
-
-                <table class="filter-table">
-
+                <table>
                     <thead>
                         <tr>
                             <th>DB ID</th>
                             <th>Student ID</th>
-                            <th>Complete Name</th>
+                            <th>Name</th>
                             <th>Program</th>
-                            <th>Year Level</th>
+                            <th>Year</th>
                             <th>Section</th>
+                            <th>Source</th>
                         </tr>
                     </thead>
-
-                    <tbody id="programBody">
-                        <tr>
-                            <td colspan="6">
-                                No results yet.
-                            </td>
-                        </tr>
-                    </tbody>
-
+                    <tbody id="programBody"></tbody>
                 </table>
-
             </div>
-
         </div>
 
-        <!-- FILTER BY YEAR LEVEL -->
-
-        <div class="panel filter-card">
-
+        <div class="panel">
             <h3>📚 Filter Students by Year Level</h3>
-
-            <p class="filter-description">
-                View student records grouped by
-                their academic year level.
-            </p>
-
-            <span class="endpoint">
-                GET /students/year/3
-            </span>
+            <p>Retrieve students belonging to a selected year level.</p>
+            <span class="endpoint">GET /students/year/3</span>
 
             <div class="filter-toolbar">
-
                 <div class="filter-field">
-
-                    <label for="filterYear">
-                        Select Year Level
-                    </label>
-
+                    <label>Select Year Level</label>
                     <select id="filterYear">
-
-                        <option value="1">
-                            1st Year
-                        </option>
-
-                        <option value="2">
-                            2nd Year
-                        </option>
-
-                        <option value="3" selected>
-                            3rd Year
-                        </option>
-
-                        <option value="4">
-                            4th Year
-                        </option>
-
+                        <option value="1">1st Year</option>
+                        <option value="2">2nd Year</option>
+                        <option value="3" selected>3rd Year</option>
+                        <option value="4">4th Year</option>
                     </select>
-
                 </div>
-
-                <button
-                    class="btn"
-                    id="filterYearBtn">
-                    🔍 Filter Year Level
+                <button class="btn" id="filterYearBtn">
+                    Filter Year Level
                 </button>
-
             </div>
 
             <div class="filter-result" id="yearStatus">
-                Select a year level to view matching records.
+                Select a year level.
             </div>
 
             <div class="table-wrap">
-
-                <table class="filter-table">
-
+                <table>
                     <thead>
                         <tr>
                             <th>DB ID</th>
                             <th>Student ID</th>
-                            <th>Complete Name</th>
+                            <th>Name</th>
                             <th>Program</th>
-                            <th>Year Level</th>
+                            <th>Year</th>
                             <th>Section</th>
+                            <th>Source</th>
                         </tr>
                     </thead>
-
-                    <tbody id="yearBody">
-                        <tr>
-                            <td colspan="6">
-                                No results yet.
-                            </td>
-                        </tr>
-                    </tbody>
-
+                    <tbody id="yearBody"></tbody>
                 </table>
-
             </div>
-
         </div>
-
     </div>
-
 </section>
 
-<!-- ==========================
-     CLASSMATE RECORDS
-========================== -->
-
-<section class="page" id="page-remote">
-
+<!-- PARTNER RECORDS -->
+<section class="page" id="page-partner">
     <div class="eyebrow">External Data Integration</div>
-
-    <h2 class="page-title">
-        Classmate's Records
-    </h2>
-
+    <h2 class="page-title">Partner Records</h2>
     <p class="subtitle">
-        Student information retrieved from your
-        classmate's deployed REST API.
-        These records are read-only.
+        Retrieve records from your assigned classmate's deployed
+        Flask API. View and save selected practice records locally.
     </p>
 
     <div class="panel">
-
-        <h3>Remote Student Database</h3>
-
-        <span class="endpoint">
-            GET /api/classmate
-        </span>
+        <h3>Partner Student Database</h3>
+        <span class="endpoint">GET /partner-records</span>
 
         <div class="actions">
-
-            <button class="btn" id="refreshRemote">
-                Refresh Remote Records
+            <button class="btn" id="refreshPartner">
+                Retrieve Partner Records
             </button>
-
         </div>
 
-        <div class="notice" id="remoteStatus">
-            Waiting for remote API...
+        <div class="notice" id="partnerStatus">
+            Waiting for partner API...
         </div>
 
         <div class="table-wrap">
-
             <table>
-
                 <thead>
                     <tr>
                         <th>Student ID</th>
@@ -1577,1001 +1003,905 @@ tbody tr:hover {
                         <th>Program</th>
                         <th>Year</th>
                         <th>Section</th>
+                        <th>Source</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="partnerBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="panel">
+        <h3>Selected Partner Record</h3>
+        <p>
+            Click View to inspect a remote record before saving it.
+        </p>
+        <pre class="output" id="partnerDetails">No partner record selected.</pre>
+    </div>
+</section>
+
+<!-- IMPORTED RECORDS -->
+<section class="page" id="page-imported">
+    <div class="eyebrow">System Integration</div>
+    <h2 class="page-title">Imported Records</h2>
+    <p class="subtitle">
+        These records were retrieved from your classmate's API
+        and permanently saved in your own SQLite database,
+        subject to your hosting storage configuration.
+    </p>
+
+    <div class="panel">
+        <h3>Saved Classmate API Records</h3>
+        <span class="endpoint">GET /api/students</span>
+
+        <div class="actions">
+            <button class="btn" id="refreshImported">
+                Retrieve Saved Records
+            </button>
+            <button class="btn secondary" data-go="partner">
+                Import Another Record
+            </button>
+        </div>
+
+        <div class="notice" id="importedStatus">
+            Loading imported records...
+        </div>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>DB ID</th>
+                        <th>Student ID</th>
+                        <th>Name</th>
+                        <th>Program</th>
+                        <th>Year</th>
+                        <th>Section</th>
+                        <th>Source</th>
                         <th>Action</th>
                     </tr>
                 </thead>
-
-                <tbody id="remoteBody">
-                    <tr>
-                        <td colspan="6">
-                            Loading remote records...
-                        </td>
-                    </tr>
-                </tbody>
-
+                <tbody id="importedBody"></tbody>
             </table>
-
         </div>
-
     </div>
-
-    <div class="panel">
-
-        <h3>Remote Student Details</h3>
-
-        <p>
-            Click View Details to inspect a remote
-            student record without modifying
-            the classmate's database.
-        </p>
-
-        <pre class="output" id="remoteDetails">No remote student selected.</pre>
-
-    </div>
-
 </section>
 
-<!-- ==========================
-     STUDENT INFORMATION
-========================== -->
-
-<section class="page" id="page-student">
-
-    <div class="eyebrow">
-        Previous Laboratory Features
-    </div>
-
-    <h2 class="page-title">
-        Student Information
-    </h2>
-
+<!-- SEND PRACTICE RECORD -->
+<section class="page" id="page-send">
+    <div class="eyebrow">Two-Way API Integration</div>
+    <h2 class="page-title">Send Practice Record</h2>
     <p class="subtitle">
-        Retrieve the original student profile API response.
+        Send a fictional laboratory record to your assigned partner's
+        POST API endpoint after coordinating the test.
     </p>
 
     <div class="panel">
+        <h3>Outgoing Student Record</h3>
+        <span class="endpoint">POST /send-partner-record</span>
 
-        <span class="endpoint">
-            GET /student
-        </span>
+        <div class="notice">
+            This action writes a record to your partner's database.
+            Send only fictional information and obtain your
+            partner's agreement before proceeding.
+        </div>
 
+        <form id="sendForm">
+            <div class="form-grid">
+                <div class="field">
+                    <label>Student ID</label>
+                    <input id="sendId" required value="EXT-001">
+                </div>
+
+                <div class="field">
+                    <label>Complete Name</label>
+                    <input id="sendName" required
+                           value="Sample Exchange Record">
+                </div>
+
+                <div class="field">
+                    <label>Program</label>
+                    <input id="sendProgram" required value="BSIT">
+                </div>
+
+                <div class="field">
+                    <label>Year Level</label>
+                    <select id="sendYear">
+                        <option value="1" selected>1st Year</option>
+                        <option value="2">2nd Year</option>
+                        <option value="3">3rd Year</option>
+                        <option value="4">4th Year</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label>Section</label>
+                    <input id="sendSection" required value="A">
+                </div>
+
+                <div class="field">
+                    <label>Source</label>
+                    <input value="Partner API" disabled>
+                </div>
+            </div>
+
+            <div class="actions">
+                <button type="submit" class="btn" id="sendBtn">
+                    Send Record to Partner →
+                </button>
+            </div>
+        </form>
+
+        <div class="notice" id="sendStatus">
+            Ready to send a practice record.
+        </div>
+
+        <pre class="output" id="sendResult">The API response will appear here.</pre>
+    </div>
+</section>
+
+<!-- PREVIOUS LAB ENDPOINTS -->
+<section class="page" id="page-student">
+    <div class="eyebrow">Previous Laboratory Features</div>
+    <h2 class="page-title">Student Information</h2>
+
+    <div class="panel">
+        <span class="endpoint">GET /student</span>
         <div class="actions">
-
             <button class="btn" id="loadStudent">
                 Load Student Information
             </button>
-
         </div>
-
-        <pre class="output" id="studentResult">Click the button to retrieve information.</pre>
-
+        <pre class="output" id="studentResult">Click to retrieve student information.</pre>
     </div>
-
 </section>
-
-<!-- ==========================
-     GREETING API
-========================== -->
 
 <section class="page" id="page-greeting">
-
-    <div class="eyebrow">
-        Previous Laboratory Features
-    </div>
-
-    <h2 class="page-title">
-        Greeting API
-    </h2>
-
-    <p class="subtitle">
-        Send a name to the Flask API and receive
-        a personalized greeting.
-    </p>
+    <div class="eyebrow">Previous Laboratory Features</div>
+    <h2 class="page-title">Greeting API</h2>
 
     <div class="panel">
-
-        <span class="endpoint">
-            GET /hello?name=YourName
-        </span>
-
-        <div class="actions">
-
-            <input
-                class="search-input"
-                id="helloName"
-                placeholder="Enter your name"
-            >
-
-            <button class="btn" id="sayHello">
-                Send Greeting
-            </button>
-
+        <span class="endpoint">GET /hello?name=</span>
+        <div class="toolbar">
+            <input class="search-input" id="helloName"
+                   placeholder="Enter your name">
+            <button class="btn" id="sayHello">Send Greeting</button>
         </div>
-
         <pre class="output" id="helloResult">Your greeting will appear here.</pre>
-
     </div>
-
 </section>
 
-<!-- ==========================
-     ABOUT ME API
-========================== -->
-
 <section class="page" id="page-about">
-
-    <div class="eyebrow">
-        Previous Laboratory Features
-    </div>
-
-    <h2 class="page-title">
-        About Me API
-    </h2>
-
-    <p class="subtitle">
-        Display your original About Me endpoint.
-    </p>
+    <div class="eyebrow">Previous Laboratory Features</div>
+    <h2 class="page-title">About Me API</h2>
 
     <div class="panel">
-
-        <span class="endpoint">
-            GET /about
-        </span>
-
+        <span class="endpoint">GET /about</span>
         <div class="actions">
-
-            <button class="btn" id="loadAbout">
-                Load About Me
-            </button>
-
+            <button class="btn" id="loadAbout">Load About Me</button>
         </div>
-
-        <pre class="output" id="aboutResult">Click the button to retrieve profile information.</pre>
-
+        <pre class="output" id="aboutResult">Click to retrieve profile information.</pre>
     </div>
-
 </section>
 
 <div class="footer">
-    StudentHub · Laboratory Activity 8 ·
+    StudentHub · Laboratory Activity 9 ·
     Created by Jasmine Rose Biboso | BSIT 3A
 </div>
 
 </main>
 </div>
 
-<!-- ==========================
-     JAVASCRIPT
-========================== -->
+<!-- VIEW MODAL -->
+<div class="modal" id="viewModal">
+    <div class="modal-card">
+        <h3 id="modalTitle">Student Details</h3>
+        <div class="modal-details" id="modalDetails"></div>
+        <div class="actions">
+            <button class="btn" id="modalSave" style="display:none">
+                Save to My Database
+            </button>
+            <button class="btn secondary" id="closeModal">
+                Close
+            </button>
+        </div>
+    </div>
+</div>
 
 <script>
+"use strict";
 
 const $ = id => document.getElementById(id);
 
 let localStudents = [];
-let remoteStudents = [];
+let partnerStudents = [];
 let editingId = null;
+let selectedPartner = null;
 
-/* ==========================
-   NAVIGATION
-========================== */
-
-function showPage(page) {
-
-    document.querySelectorAll('.page').forEach(el => {
-        el.classList.toggle(
-            'active',
-            el.id === 'page-' + page
-        );
+/* NAVIGATION */
+function showPage(page){
+    document.querySelectorAll(".page").forEach(el=>{
+        el.classList.toggle("active",el.id==="page-"+page);
     });
 
-    document.querySelectorAll('.nav-link').forEach(el => {
-        el.classList.toggle(
-            'active',
-            el.dataset.page === page
-        );
+    document.querySelectorAll(".nav-link").forEach(el=>{
+        el.classList.toggle("active",el.dataset.page===page);
     });
 
-    const titles = {
-        dashboard:'Dashboard',
-        records:'My Records',
-        manage:'Student Management',
-        search:'Search & Filters',
-        remote:"Classmate's Records",
-        student:'Student Information',
-        greeting:'Greeting API',
-        about:'About Me'
+    const titles={
+        dashboard:"Integration Dashboard",
+        records:"My Records",
+        manage:"Student Management",
+        search:"Search & Filters",
+        partner:"Partner Records",
+        imported:"Imported Records",
+        send:"Send Practice Record",
+        student:"Student Information",
+        greeting:"Greeting API",
+        about:"About Me"
     };
 
-    $('topTitle').textContent =
-        titles[page] || 'StudentHub';
+    $("topTitle").textContent=titles[page]||"StudentHub";
+    $("sidebar").classList.remove("open");
 
-    $('sidebar').classList.remove('open');
+    if(page==="records")loadLocal();
+    if(page==="imported")loadLocal();
+    if(page==="partner")loadPartner();
+    if(page==="dashboard")loadLocal();
 
-    window.scrollTo({
-        top:0,
-        behavior:'smooth'
-    });
+    window.scrollTo({top:0,behavior:"smooth"});
 }
 
-document.querySelectorAll('[data-page]').forEach(button => {
-
-    button.addEventListener('click', () => {
-
-        if (button.dataset.page === 'manage') {
-            clearForm();
-        }
-
-        showPage(button.dataset.page);
+document.querySelectorAll("[data-page]").forEach(btn=>{
+    btn.addEventListener("click",()=>{
+        if(btn.dataset.page==="manage")clearForm();
+        showPage(btn.dataset.page);
     });
 });
 
-document.querySelectorAll('[data-go]').forEach(button => {
-
-    button.addEventListener('click', () => {
-        showPage(button.dataset.go);
-    });
+document.querySelectorAll("[data-go]").forEach(btn=>{
+    btn.addEventListener("click",()=>showPage(btn.dataset.go));
 });
 
-$('menuToggle').onclick = () => {
-    $('sidebar').classList.toggle('open');
+$("menuToggle").onclick=()=>{
+    $("sidebar").classList.toggle("open");
 };
 
-/* ==========================
-   BACK BUTTONS
-========================== */
+/* API HELPER */
+async function api(url,options={}){
+    let response;
 
-function backToRecords() {
-    clearForm();
-    showPage('records');
-}
-
-$('backToRecordsTop').onclick = backToRecords;
-$('backToRecordsBottom').onclick = backToRecords;
-
-$('addFromRecords').onclick = () => {
-    clearForm();
-    showPage('manage');
-};
-
-/* ==========================
-   API FETCH
-========================== */
-
-async function api(url, options = {}) {
-
-    const response = await fetch(url, options);
+    try{
+        response=await fetch(url,options);
+    }catch(error){
+        throw new Error("Network error: "+error.message);
+    }
 
     let data;
 
-    try {
-        data = await response.json();
-    } catch {
-        throw new Error(
-            'Server did not return valid JSON.'
-        );
+    try{
+        data=await response.json();
+    }catch{
+        throw new Error("Server did not return valid JSON.");
     }
 
-    if (!response.ok) {
+    if(!response.ok){
         throw new Error(
-            data.error ||
-            `Request failed (${response.status})`
+            data.error||data.message||
+            "Request failed ("+response.status+")"
         );
     }
 
     return data;
 }
 
-/* ==========================
-   TABLE HELPERS
-========================== */
+function extractStudents(data){
+    if(Array.isArray(data))return data;
+    if(data&&Array.isArray(data.students))return data.students;
+    throw new Error("API response does not contain a student list.");
+}
 
-function td(row, value) {
+function setStatus(id,message,type=""){
+    const el=$(id);
+    el.textContent=message;
+    el.className="notice"+(type?" "+type:"");
+}
 
-    const cell = row.insertCell();
-
-    cell.textContent = value ?? '';
-
+function td(row,value){
+    const cell=row.insertCell();
+    cell.textContent=value??"";
     return cell;
 }
 
-function createButton(label, className, callback) {
-
-    const button = document.createElement('button');
-
-    button.className = 'btn small ' + className;
-
-    button.textContent = label;
-
-    button.onclick = callback;
-
-    return button;
+function button(label,style,callback){
+    const el=document.createElement("button");
+    el.type="button";
+    el.className="btn small "+style;
+    el.textContent=label;
+    el.onclick=callback;
+    return el;
 }
 
-function fillTable(tableId, students, columns) {
+function sourceOf(student){
+    return String(student.source||"Local");
+}
 
-    const body = $(tableId);
+function sourceBadge(cell,source){
+    const tag=document.createElement("span");
+    tag.className="source-tag ";
 
+    if(source==="Local"){
+        tag.className+="source-local";
+    }else if(source==="Classmate API"){
+        tag.className+="source-imported";
+    }else{
+        tag.className+="source-external";
+    }
+
+    tag.textContent=source;
+    cell.append(tag);
+}
+
+function renderBasicTable(id,students){
+    const body=$(id);
     body.replaceChildren();
 
-    if (!students.length) {
-
-        const row = body.insertRow();
-
-        td(row, 'No records found.').colSpan =
-            columns.length;
-
+    if(!students.length){
+        td(body.insertRow(),"No records found.").colSpan=7;
         return;
     }
 
-    students.forEach(student => {
+    students.forEach(student=>{
+        const row=body.insertRow();
 
-        const row = body.insertRow();
+        ["id","student_id","name","program","year","section"]
+        .forEach(key=>td(row,student[key]));
 
-        columns.forEach(column => {
-            td(row, student[column]);
-        });
+        sourceBadge(row.insertCell(),sourceOf(student));
     });
 }
 
-/* ==========================
-   LOAD LOCAL STUDENTS
-========================== */
+/* LOCAL RECORDS */
+async function loadLocal(){
+    try{
+        const data=await api("/api/students");
+        localStudents=extractStudents(data);
 
-async function loadLocal() {
-
-    try {
-
-        const data = await api('/api/students');
-
-        localStudents = Array.isArray(data)
-            ? data
-            : data.students || [];
+        $("connectionBadge").textContent="● Local API Online";
 
         renderLocal();
+        renderImported();
+        updateDashboard();
 
-        $('connectionBadge').textContent =
-            '● Local API Online';
-
-        $('statTotal').textContent =
-            localStudents.length;
-
-        $('statBSIT').textContent =
-            localStudents.filter(student =>
-                String(student.program)
-                    .toUpperCase() === 'BSIT'
-            ).length;
-
-        $('statYears').textContent =
-            new Set(
-                localStudents.map(student => student.year)
-            ).size;
-
-        const recent = $('recentList');
-
-        recent.replaceChildren();
-
-        if (!localStudents.length) {
-            recent.textContent =
-                'No student records yet.';
-        }
-
-        [...localStudents]
-            .sort((a,b) => b.id - a.id)
-            .slice(0,5)
-            .forEach(student => {
-
-                const div =
-                    document.createElement('div');
-
-                div.className = 'mini-item';
-
-                const left =
-                    document.createElement('div');
-
-                const name =
-                    document.createElement('strong');
-
-                name.textContent = student.name;
-
-                const small =
-                    document.createElement('small');
-
-                small.textContent =
-                    `${student.student_id} · ${student.program} · Year ${student.year}`;
-
-                left.append(name,small);
-
-                const tag =
-                    document.createElement('span');
-
-                tag.className = 'tag';
-
-                tag.textContent = student.section;
-
-                div.append(left,tag);
-
-                recent.append(div);
-            });
-
-    } catch(error) {
-
-        $('connectionBadge').textContent =
-            '● API Unavailable';
-
-        $('localStatus').textContent =
-            error.message;
-
-        $('recentList').textContent =
-            'Unable to load local records.';
+    }catch(error){
+        $("connectionBadge").textContent="● API Unavailable";
+        setStatus("localStatus",error.message,"error");
+        setStatus("importedStatus",error.message,"error");
+        $("dashboardNotice").textContent=error.message;
     }
 }
 
-/* ==========================
-   RENDER LOCAL RECORDS
-========================== */
-
-function renderLocal() {
-
-    const query =
-        $('localSearch').value.toLowerCase().trim();
-
-    const filtered = localStudents.filter(student =>
-
-        ['student_id','name','program','section'].some(key =>
-
-            String(student[key] ?? '')
-                .toLowerCase()
-                .includes(query)
-        )
+function updateDashboard(){
+    const local=localStudents.filter(s=>sourceOf(s)==="Local");
+    const imported=localStudents.filter(
+        s=>sourceOf(s)==="Classmate API"
     );
 
-    const body = $('localBody');
+    $("statLocal").textContent=local.length;
+    $("statImported").textContent=imported.length;
+    $("statTotal").textContent=localStudents.length;
 
+    const recent=$("recentList");
+    recent.replaceChildren();
+
+    if(!localStudents.length){
+        recent.textContent="No saved records yet.";
+        return;
+    }
+
+    [...localStudents]
+    .sort((a,b)=>Number(b.id)-Number(a.id))
+    .slice(0,5)
+    .forEach(student=>{
+        const item=document.createElement("div");
+        item.className="mini-item";
+
+        const left=document.createElement("div");
+        const name=document.createElement("strong");
+        name.textContent=student.name;
+
+        const info=document.createElement("small");
+        info.textContent=
+            `${student.student_id} · ${student.program} · Year ${student.year}`;
+
+        left.append(name,info);
+
+        const tag=document.createElement("span");
+        tag.className="tag";
+        tag.textContent=sourceOf(student);
+
+        item.append(left,tag);
+        recent.append(item);
+    });
+}
+
+function renderLocal(){
+    const query=$("localSearch").value.toLowerCase().trim();
+
+    const filtered=localStudents.filter(student=>
+        ["student_id","name","program","section","source"]
+        .some(key=>String(student[key]??"")
+        .toLowerCase().includes(query))
+    );
+
+    const body=$("localBody");
     body.replaceChildren();
 
-    $('localStatus').textContent =
-        `Showing ${filtered.length} of ${localStudents.length} local records.`;
-
-    if (!filtered.length) {
-
-        td(
-            body.insertRow(),
-            'No matching records.'
-        ).colSpan = 7;
-
-        return;
-    }
-
-    filtered.forEach(student => {
-
-        const row = body.insertRow();
-
-        [
-            'id',
-            'student_id',
-            'name',
-            'program',
-            'year',
-            'section'
-        ].forEach(key => {
-            td(row,student[key]);
-        });
-
-        const actions = row.insertCell();
-
-        actions.append(
-
-            createButton(
-                'View',
-                'teal',
-                () => viewLocal(student.id)
-            ),
-
-            createButton(
-                'Edit',
-                'warning',
-                () => editLocal(student.id)
-            ),
-
-            createButton(
-                'Delete',
-                'danger',
-                () => deleteLocal(student.id)
-            )
-        );
-    });
-}
-
-/* ==========================
-   CLEAR FORM
-========================== */
-
-function clearForm() {
-
-    $('studentForm').reset();
-
-    editingId = null;
-
-    $('formHeading').textContent =
-        'Add New Student';
-
-    $('saveBtn').textContent =
-        'Save Student';
-}
-
-/* ==========================
-   EDIT STUDENT
-========================== */
-
-function editLocal(id) {
-
-    const student = localStudents.find(
-        item => item.id === id
+    setStatus(
+        "localStatus",
+        `Showing ${filtered.length} of ${localStudents.length} saved records.`
     );
 
-    if (!student) return;
-
-    editingId = id;
-
-    [
-        'student_id',
-        'name',
-        'program',
-        'year',
-        'section'
-    ].forEach(key => {
-        $(key).value = student[key];
-    });
-
-    $('formHeading').textContent =
-        'Edit Student Information';
-
-    $('saveBtn').textContent =
-        'Update Student';
-
-    showPage('manage');
-}
-
-/* ==========================
-   VIEW STUDENT
-========================== */
-
-async function viewLocal(id) {
-
-    showPage('search');
-
-    $('searchId').value = id;
-
-    await searchById();
-}
-
-/* ==========================
-   DELETE STUDENT
-========================== */
-
-async function deleteLocal(id) {
-
-    if (!confirm(
-        'Are you sure you want to delete this student record?'
-    )) {
+    if(!filtered.length){
+        td(body.insertRow(),"No matching records.").colSpan=8;
         return;
     }
 
-    try {
+    filtered.forEach(student=>{
+        const row=body.insertRow();
 
-        const data = await api(
-            '/api/students/' + id,
-            {
-                method:'DELETE'
-            }
+        ["id","student_id","name","program","year","section"]
+        .forEach(key=>td(row,student[key]));
+
+        sourceBadge(row.insertCell(),sourceOf(student));
+
+        const actions=row.insertCell();
+
+        actions.append(
+            button("View","teal",()=>viewStudent(student)),
+            button("Edit","warning",()=>editStudent(student.id)),
+            button("Delete","danger",()=>deleteStudent(student.id))
         );
-
-        if (editingId === id) {
-            clearForm();
-        }
-
-        await refreshAll();
-
-        $('localStatus').textContent =
-            data.message ||
-            'Student deleted successfully.';
-
-    } catch(error) {
-
-        alert(
-            'Delete failed: ' + error.message
-        );
-    }
+    });
 }
 
-/* ==========================
-   ADD / UPDATE STUDENT
-========================== */
+function renderImported(){
+    const imported=localStudents.filter(
+        s=>sourceOf(s)==="Classmate API"
+    );
 
-$('studentForm').onsubmit = async event => {
+    const body=$("importedBody");
+    body.replaceChildren();
 
+    setStatus(
+        "importedStatus",
+        `${imported.length} imported record(s) retrieved from your SQLite database.`
+    );
+
+    if(!imported.length){
+        td(body.insertRow(),"No imported records yet.").colSpan=8;
+        return;
+    }
+
+    imported.forEach(student=>{
+        const row=body.insertRow();
+
+        ["id","student_id","name","program","year","section"]
+        .forEach(key=>td(row,student[key]));
+
+        sourceBadge(row.insertCell(),sourceOf(student));
+
+        row.insertCell().append(
+            button("View","teal",()=>viewStudent(student))
+        );
+    });
+}
+
+/* VIEW MODAL */
+function viewStudent(student,remote=false){
+    selectedPartner=remote?student:null;
+
+    $("modalTitle").textContent=remote
+        ?"Partner Student Details"
+        :"Saved Student Details";
+
+    const container=$("modalDetails");
+    container.replaceChildren();
+
+    const fields=[
+        ["Student ID",student.student_id],
+        ["Complete Name",student.name],
+        ["Program",student.program],
+        ["Year Level",student.year],
+        ["Section",student.section],
+        ["Source",remote?"Partner API":sourceOf(student)]
+    ];
+
+    fields.forEach(([key,value])=>{
+        const label=document.createElement("div");
+        label.className="key";
+        label.textContent=key;
+
+        const detail=document.createElement("div");
+        detail.className="value";
+        detail.textContent=value??"";
+
+        container.append(label,detail);
+    });
+
+    $("modalSave").style.display=remote?"inline-block":"none";
+    $("viewModal").classList.add("show");
+}
+
+function closeModal(){
+    $("viewModal").classList.remove("show");
+    selectedPartner=null;
+}
+
+$("closeModal").onclick=closeModal;
+
+$("viewModal").addEventListener("click",event=>{
+    if(event.target===$("viewModal"))closeModal();
+});
+
+/* ADD / EDIT */
+function clearForm(){
+    $("studentForm").reset();
+    editingId=null;
+    $("formHeading").textContent="Add New Student";
+    $("saveBtn").textContent="Save Student";
+    setStatus("formStatus","Complete the fields to save a student.");
+}
+
+function editStudent(id){
+    const student=localStudents.find(
+        s=>Number(s.id)===Number(id)
+    );
+
+    if(!student)return;
+
+    editingId=id;
+
+    ["student_id","name","program","year","section"]
+    .forEach(key=>$(key).value=student[key]);
+
+    $("formHeading").textContent="Edit Student Information";
+    $("saveBtn").textContent="Update Student";
+    showPage("manage");
+}
+
+$("studentForm").onsubmit=async event=>{
     event.preventDefault();
 
-    const student = {
-
-        student_id:$('student_id').value.trim(),
-
-        name:$('name').value.trim(),
-
-        program:$('program').value.trim(),
-
-        year:Number($('year').value),
-
-        section:$('section').value.trim()
+    const student={
+        student_id:$("student_id").value.trim(),
+        name:$("name").value.trim(),
+        program:$("program").value.trim(),
+        year:Number($("year").value),
+        section:$("section").value.trim(),
+        source:"Local"
     };
 
-    const editing = editingId !== null;
+    const editing=editingId!==null;
 
-    const url = editing
-        ? '/api/students/' + editingId
-        : '/api/students';
+    const url=editing
+        ?"/api/students/"+editingId
+        :"/api/students";
 
-    $('saveBtn').disabled = true;
+    $("saveBtn").disabled=true;
+    setStatus("formStatus","Saving student...");
 
-    $('formStatus').textContent = 'Saving...';
-
-    try {
-
-        const result = await api(url, {
-
-            method:editing ? 'PUT' : 'POST',
-
-            headers:{
-                'Content-Type':'application/json'
-            },
-
+    try{
+        const result=await api(url,{
+            method:editing?"PUT":"POST",
+            headers:{"Content-Type":"application/json"},
             body:JSON.stringify(student)
         });
 
-        $('formResult').textContent =
-            JSON.stringify(
-                result.student || result,
-                null,
-                2
-            );
-
-        $('formStatus').textContent =
-            result.message ||
-            'Saved successfully.';
-
+        $("formResult").textContent=JSON.stringify(result,null,2);
         clearForm();
+        await loadLocal();
 
-        await refreshAll();
+        setStatus(
+            "formStatus",
+            result.message||"Student saved successfully.",
+            "success"
+        );
 
-    } catch(error) {
-
-        $('formStatus').textContent =
-            'Error: ' + error.message;
-
-    } finally {
-
-        $('saveBtn').disabled = false;
+    }catch(error){
+        setStatus("formStatus",error.message,"error");
+    }finally{
+        $("saveBtn").disabled=false;
     }
 };
 
-/* ==========================
-   SEARCH BY ID
-========================== */
+async function deleteStudent(id){
+    if(!confirm("Delete this student record?"))return;
 
-async function searchById() {
+    try{
+        await api("/api/students/"+id,{method:"DELETE"});
+        await loadLocal();
+        setStatus("localStatus","Student deleted successfully.","success");
+    }catch(error){
+        alert("Delete failed: "+error.message);
+    }
+}
 
-    const id = Number(
-        $('searchId').value
-    );
+$("clearBtn").onclick=clearForm;
+$("backToRecords").onclick=()=>showPage("records");
+$("addFromRecords").onclick=()=>{
+    clearForm();
+    showPage("manage");
+};
+$("localSearch").oninput=renderLocal;
+$("refreshLocal").onclick=loadLocal;
+$("refreshImported").onclick=loadLocal;
 
-    if (!Number.isInteger(id) || id < 1) {
+/* SEARCH AND FILTERS */
+async function searchById(){
+    const id=Number($("searchId").value);
 
-        $('searchResult').textContent =
-            'Enter a valid database ID.';
-
+    if(!Number.isInteger(id)||id<1){
+        $("searchResult").textContent="Enter a valid database ID.";
         return;
     }
 
-    try {
-
-        const student = await api(
-            '/students/' + id
-        );
-
-        $('searchResult').textContent =
-            JSON.stringify(
-                student,
-                null,
-                2
-            );
-
-    } catch(error) {
-
-        $('searchResult').textContent =
-            'Error: ' + error.message;
+    try{
+        const student=await api("/students/"+id);
+        $("searchResult").textContent=JSON.stringify(student,null,2);
+    }catch(error){
+        $("searchResult").textContent="Error: "+error.message;
     }
 }
 
-/* ==========================
-   FILTER BY PROGRAM
-========================== */
+async function filterProgram(){
+    const program=$("filterProgram").value.trim();
 
-async function filterProgram() {
-
-    const program =
-        $('filterProgram').value.trim();
-
-    if (!program) {
-
-        $('programStatus').textContent =
-            'Please enter a program.';
-
+    if(!program){
+        setStatus("programStatus","Enter a program.","error");
         return;
     }
 
-    $('programStatus').textContent =
-        'Loading program records...';
-
-    try {
-
-        const data = await api(
-            '/students/program/' +
-            encodeURIComponent(program)
+    try{
+        const data=await api(
+            "/students/program/"+encodeURIComponent(program)
         );
 
-        fillTable(
-            'programBody',
-            data.students,
-            [
-                'id',
-                'student_id',
-                'name',
-                'program',
-                'year',
-                'section'
-            ]
+        const students=extractStudents(data);
+        renderBasicTable("programBody",students);
+
+        setStatus(
+            "programStatus",
+            `${students.length} record(s) found for ${program}.`
         );
 
-        $('programStatus').textContent =
-            `${data.count} matching student records for ${program}.`;
-
-    } catch(error) {
-
-        $('programStatus').textContent =
-            'Error: ' + error.message;
+    }catch(error){
+        setStatus("programStatus",error.message,"error");
     }
 }
 
-/* ==========================
-   FILTER BY YEAR LEVEL
-========================== */
+async function filterYear(){
+    const year=$("filterYear").value;
 
-async function filterYear() {
+    try{
+        const data=await api("/students/year/"+year);
+        const students=extractStudents(data);
 
-    const year =
-        $('filterYear').value;
+        renderBasicTable("yearBody",students);
 
-    $('yearStatus').textContent =
-        'Loading year level records...';
-
-    try {
-
-        const data = await api(
-            '/students/year/' + year
+        setStatus(
+            "yearStatus",
+            `${students.length} record(s) found for Year ${year}.`
         );
 
-        fillTable(
-            'yearBody',
-            data.students,
-            [
-                'id',
-                'student_id',
-                'name',
-                'program',
-                'year',
-                'section'
-            ]
-        );
-
-        $('yearStatus').textContent =
-            `${data.count} matching records for Year ${year}.`;
-
-    } catch(error) {
-
-        $('yearStatus').textContent =
-            'Error: ' + error.message;
+    }catch(error){
+        setStatus("yearStatus",error.message,"error");
     }
 }
 
-/* ==========================
-   REFRESH ALL
-========================== */
+$("searchIdBtn").onclick=searchById;
+$("filterProgramBtn").onclick=filterProgram;
+$("filterYearBtn").onclick=filterYear;
 
-async function refreshAll() {
+/* PARTNER RECORDS */
+async function loadPartner(){
+    setStatus("partnerStatus","Connecting to partner API...");
 
-    await loadLocal();
-
-    await Promise.all([
-        filterProgram(),
-        filterYear()
-    ]);
-}
-
-/* ==========================
-   CLASSMATE RECORDS
-========================== */
-
-async function loadRemote() {
-
-    $('remoteStatus').textContent =
-        'Connecting to classmate API...';
-
-    const body = $('remoteBody');
-
+    const body=$("partnerBody");
     body.replaceChildren();
 
-    try {
+    try{
+        const data=await api("/partner-records");
+        partnerStudents=extractStudents(data);
 
-        const data = await api(
-            '/api/classmate'
+        $("statPartner").textContent=partnerStudents.length;
+
+        setStatus(
+            "partnerStatus",
+            `${partnerStudents.length} partner record(s) retrieved successfully.`,
+            "success"
         );
 
-        remoteStudents = Array.isArray(data)
-            ? data
-            : data.students || [];
+        $("dashboardNotice").textContent=
+            "Partner API connected. You can view and import selected records.";
 
-        $('statRemote').textContent =
-            remoteStudents.length;
-
-        $('remoteStatus').textContent =
-            `${remoteStudents.length} remote records loaded (read-only).`;
-
-        $('dashboardNotice').textContent =
-            'Classmate API connected. Remote records are read-only.';
-
-        if (!remoteStudents.length) {
-
-            td(
-                body.insertRow(),
-                'No remote records available.'
-            ).colSpan = 6;
-
+        if(!partnerStudents.length){
+            td(body.insertRow(),"No partner records found.").colSpan=7;
             return;
         }
 
-        remoteStudents.forEach((student,index) => {
+        partnerStudents.forEach(student=>{
+            const row=body.insertRow();
 
-            const row = body.insertRow();
+            ["student_id","name","program","year","section"]
+            .forEach(key=>td(row,student[key]));
 
-            [
-                'student_id',
-                'name',
-                'program',
-                'year',
-                'section'
-            ].forEach(key => {
-                td(row,student[key]);
-            });
+            sourceBadge(row.insertCell(),"Partner API");
 
-            const action = row.insertCell();
+            const actions=row.insertCell();
 
-            action.append(
-
-                createButton(
-                    'View Details',
-                    'teal',
-                    () => {
-
-                        $('remoteDetails').textContent =
-                            JSON.stringify(
-                                remoteStudents[index],
-                                null,
-                                2
-                            );
-                    }
-                )
+            actions.append(
+                button("View","teal",()=>{
+                    viewStudent(student,true);
+                    $("partnerDetails").textContent=
+                        JSON.stringify(student,null,2);
+                }),
+                button("Save to My Database","",()=>{
+                    importStudent(student);
+                })
             );
         });
 
-    } catch(error) {
+    }catch(error){
+        partnerStudents=[];
+        $("statPartner").textContent="—";
+        setStatus("partnerStatus",error.message,"error");
 
-        $('remoteStatus').textContent =
-            'Remote API: ' + error.message;
+        $("dashboardNotice").textContent=
+            "Partner API unavailable: "+error.message;
 
-        $('statRemote').textContent =
-            '—';
-
-        $('dashboardNotice').textContent =
-            'Classmate API not configured or unavailable.';
-
-        td(
-            body.insertRow(),
-            'Unable to retrieve remote records.'
-        ).colSpan = 6;
+        td(body.insertRow(),"Unable to retrieve partner records.").colSpan=7;
     }
 }
 
-/* ==========================
-   OTHER API FUNCTIONS
-========================== */
+/* IMPORT PARTNER RECORD */
+async function importStudent(student){
+    if(!student)return;
 
-async function simpleFetch(url,target) {
+    const record={
+        student_id:String(student.student_id??"").trim(),
+        name:String(student.name??"").trim(),
+        program:String(student.program??"").trim(),
+        year:Number(student.year),
+        section:String(student.section??"").trim()
+    };
 
-    try {
+    if(!record.student_id||!record.name||
+       !record.program||!record.section||
+       ![1,2,3,4].includes(record.year)){
+        setStatus(
+            "partnerStatus",
+            "Selected partner record has missing or invalid fields.",
+            "error"
+        );
+        return;
+    }
 
-        const data = await api(url);
+    if(!confirm(
+        "Save "+record.name+" into your SQLite database?"
+    ))return;
 
-        $(target).textContent =
-            JSON.stringify(
-                data,
-                null,
-                2
-            );
+    try{
+        const result=await api("/import-student",{
+            method:"POST",
+            headers:{"Content-Type":"application/json"},
+            body:JSON.stringify(record)
+        });
 
-    } catch(error) {
+        closeModal();
+        await loadLocal();
 
-        $(target).textContent =
-            'Error: ' + error.message;
+        setStatus(
+            "partnerStatus",
+            result.message||"Remote record saved successfully.",
+            "success"
+        );
+
+        alert("Record imported successfully! Source: Classmate API");
+
+    }catch(error){
+        setStatus("partnerStatus",error.message,"error");
+        alert("Import failed: "+error.message);
     }
 }
 
-/* ==========================
-   BUTTON EVENTS
-========================== */
+$("modalSave").onclick=()=>{
+    if(selectedPartner)importStudent(selectedPartner);
+};
 
-$('localSearch').oninput = renderLocal;
+$("refreshPartner").onclick=loadPartner;
 
-$('refreshLocal').onclick = refreshAll;
+/* SEND PRACTICE RECORD */
+$("sendForm").onsubmit=async event=>{
+    event.preventDefault();
 
-$('clearBtn').onclick = clearForm;
+    const record={
+        student_id:$("sendId").value.trim(),
+        name:$("sendName").value.trim(),
+        program:$("sendProgram").value.trim(),
+        year:Number($("sendYear").value),
+        section:$("sendSection").value.trim(),
+        source:"Partner API"
+    };
 
-$('searchIdBtn').onclick = searchById;
+    if(!confirm(
+        "Has your assigned partner agreed to receive this fictional practice record?"
+    ))return;
 
-$('filterProgramBtn').onclick = filterProgram;
+    $("sendBtn").disabled=true;
+    setStatus("sendStatus","Sending record to partner API...");
 
-$('filterYearBtn').onclick = filterYear;
+    try{
+        const result=await api("/send-partner-record",{
+            method:"POST",
+            headers:{"Content-Type":"application/json"},
+            body:JSON.stringify(record)
+        });
 
-$('refreshRemote').onclick = loadRemote;
+        $("sendResult").textContent=JSON.stringify(result,null,2);
 
-$('loadStudent').onclick = () => {
+        setStatus(
+            "sendStatus",
+            result.message||"Partner API accepted the request.",
+            "success"
+        );
 
-    simpleFetch(
-        '/student',
-        'studentResult'
+    }catch(error){
+        $("sendResult").textContent="Error: "+error.message;
+        setStatus("sendStatus",error.message,"error");
+    }finally{
+        $("sendBtn").disabled=false;
+    }
+};
+
+/* PREVIOUS LAB FEATURES */
+async function displayAPI(url,resultId){
+    try{
+        const data=await api(url);
+        $(resultId).textContent=JSON.stringify(data,null,2);
+    }catch(error){
+        $(resultId).textContent="Error: "+error.message;
+    }
+}
+
+$("loadStudent").onclick=()=>{
+    displayAPI("/student","studentResult");
+};
+
+$("loadAbout").onclick=()=>{
+    displayAPI("/about","aboutResult");
+};
+
+$("sayHello").onclick=()=>{
+    const name=$("helloName").value.trim()||"Student";
+    displayAPI(
+        "/hello?name="+encodeURIComponent(name),
+        "helloResult"
     );
 };
 
-$('sayHello').onclick = () => {
-
-    const name =
-        $('helloName').value.trim();
-
-    simpleFetch(
-        '/hello?name=' +
-        encodeURIComponent(name),
-        'helloResult'
-    );
+/* DASHBOARD REFRESH */
+$("refreshDashboard").onclick=async()=>{
+    await Promise.all([loadLocal(),loadPartner()]);
 };
 
-$('loadAbout').onclick = () => {
-
-    simpleFetch(
-        '/about',
-        'aboutResult'
-    );
-};
-
-/* ==========================
-   INITIAL LOAD
-========================== */
-
-refreshAll();
-
-loadRemote();
+/* INITIAL LOAD */
+document.addEventListener("DOMContentLoaded",async()=>{
+    await loadLocal();
+    await loadPartner();
+});
 
 </script>
-
 </body>
 </html>
-s
